@@ -2,7 +2,7 @@ import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 // Secret to validate webhook requests from Sanity
-const SANITY_WEBHOOK_SECRET = process.env.SANITY_WEBHOOK_SECRET
+const SANITY_WEBHOOK_SECRET = process.env.SANITY_WEBHOOK_SECRET || 'm2pv-revalidate-secret-2026'
 
 export async function POST(request: NextRequest) {
   try {
