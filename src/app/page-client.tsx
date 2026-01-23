@@ -332,17 +332,24 @@ function HeroSection({ settings }: { settings: SiteSettings }) {
 
   return (
     <section ref={ref} className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
-      {/* Video Background - Solar Panels */}
+      {/* Video Background - Solar Panels (with fallback image for mobile) */}
       <motion.div style={{ scale }} className="absolute inset-0">
+        {/* Video - may not autoplay on some mobile devices */}
         <video
           autoPlay
           muted
           loop
           playsInline
+          webkit-playsinline="true"
           preload="auto"
-          className="w-full h-full object-cover opacity-70"
+          className="w-full h-full object-cover opacity-70 hidden sm:block"
           poster="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80"
-          src="https://videos.pexels.com/video-files/2800369/2800369-uhd_2560_1440_30fps.mp4"
+          src="https://videos.pexels.com/video-files/2800369/2800369-hd_1920_1080_30fps.mp4"
+        />
+        {/* Fallback image for mobile */}
+        <div 
+          className="sm:hidden w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black" />
       </motion.div>
@@ -430,7 +437,7 @@ function ThesisSection({ settings }: { settings: SiteSettings }) {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="thesis" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-neutral-900">
+    <section id="thesis" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-[#0a0a0a]">
       <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
         {/* Large Statement */}
         <motion.div
@@ -509,7 +516,7 @@ function SectorsSection({ sectors }: { sectors: Sector[] }) {
 
   return (
     <>
-      <section id="sectors" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-black">
+      <section id="sectors" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-[#111111]">
         {/* Section Header */}
         <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
           <motion.div
@@ -653,17 +660,23 @@ function EcosystemSection() {
   return (
     <>
       <section ref={ref} className="relative min-h-screen flex flex-col justify-center py-20 lg:py-32 overflow-hidden">
-        {/* Video Background - Solar Farm */}
+        {/* Video Background - Solar Farm (with mobile fallback) */}
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
             muted
             loop
             playsInline
+            webkit-playsinline="true"
             preload="auto"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover hidden sm:block"
             poster="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80"
-            src="https://videos.pexels.com/video-files/5561459/5561459-uhd_2732_1440_25fps.mp4"
+            src="https://videos.pexels.com/video-files/5561459/5561459-hd_1920_1080_25fps.mp4"
+          />
+          {/* Fallback image for mobile */}
+          <div 
+            className="sm:hidden w-full h-full bg-cover bg-center"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80')" }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         </div>
@@ -793,16 +806,23 @@ function RotatingTextSection({ settings }: { settings: SiteSettings }) {
 
   return (
     <section ref={ref} className="relative min-h-screen flex flex-col justify-center py-20 lg:py-32 overflow-hidden">
-      {/* Solar Video Background */}
+      {/* Solar Video Background (with mobile fallback) */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
           loop
           muted
           playsInline
+          webkit-playsinline="true"
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-          src="https://videos.pexels.com/video-files/6976543/6976543-uhd_2732_1440_25fps.mp4"
+          className="absolute inset-0 w-full h-full object-cover hidden sm:block"
+          poster="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1920&q=80"
+          src="https://videos.pexels.com/video-files/6976543/6976543-hd_1920_1080_25fps.mp4"
+        />
+        {/* Fallback image for mobile */}
+        <div 
+          className="sm:hidden w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1920&q=80')" }}
         />
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/70" />
@@ -862,7 +882,7 @@ function OpportunityZoneSection({ settings }: { settings: SiteSettings }) {
   const learnMoreText = settings.opportunityZoneLearnMoreText || DEFAULT_SETTINGS.opportunityZoneLearnMoreText!;
 
   return (
-    <section ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-neutral-950 border-t border-white/5">
+    <section ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-[#0f0f0f] border-t border-white/10">
       <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -928,7 +948,7 @@ function TeamSection({ team }: { team: TeamMember[] }) {
 
   return (
     <>
-      <section id="team" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-zinc-900 border-t border-white/10">
+      <section id="team" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-[#1a1a1a] border-t border-white/10">
         <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0 }}
@@ -1086,7 +1106,7 @@ function InsightsSection({ insights }: { insights: Insight[] }) {
 
   return (
     <>
-      <section id="insights" ref={ref} className="py-40 lg:py-56 bg-black">
+      <section id="insights" ref={ref} className="py-40 lg:py-56 bg-[#0a0a0a] border-t border-white/10">
         <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0 }}
@@ -1221,7 +1241,7 @@ function ContactSection({ settings }: { settings: SiteSettings }) {
   const email = settings.contactEmail || DEFAULT_SETTINGS.contactEmail!;
 
   return (
-    <section id="contact" ref={ref} className="py-40 lg:py-56 bg-neutral-900">
+    <section id="contact" ref={ref} className="py-40 lg:py-56 bg-[#151515] border-t border-white/10">
       <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
         <motion.div
           initial={{ opacity: 0 }}
@@ -1291,17 +1311,17 @@ export default function PageClient({ settings, team, sectors, insights }: PageCl
   const siteSettings = settings || DEFAULT_SETTINGS;
 
   return (
-    <main className="min-h-screen bg-stone-950 antialiased">
+    <main className="min-h-screen bg-black antialiased">
       <Navbar />
-      <div className="snap-section"><HeroSection settings={siteSettings} /></div>
-      <div className="snap-section"><ThesisSection settings={siteSettings} /></div>
-      <div className="snap-section"><SectorsSection sectors={sectors} /></div>
-      <div className="snap-section"><EcosystemSection /></div>
-      <div className="snap-section"><RotatingTextSection settings={siteSettings} /></div>
-      <div className="snap-section"><OpportunityZoneSection settings={siteSettings} /></div>
-      <div className="snap-section"><TeamSection team={team} /></div>
-      <div className="snap-section"><InsightsSection insights={insights} /></div>
-      <div className="snap-section"><ContactSection settings={siteSettings} /></div>
+      <HeroSection settings={siteSettings} />
+      <ThesisSection settings={siteSettings} />
+      <SectorsSection sectors={sectors} />
+      <EcosystemSection />
+      <RotatingTextSection settings={siteSettings} />
+      <OpportunityZoneSection settings={siteSettings} />
+      <TeamSection team={team} />
+      <InsightsSection insights={insights} />
+      <ContactSection settings={siteSettings} />
       <Footer settings={siteSettings} />
     </main>
   );
