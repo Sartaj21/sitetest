@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   motion,
   useInView,
@@ -324,74 +324,99 @@ function HeroSection({ settings }: { settings: SiteSettings }) {
     offset: ["start start", "end start"],
   });
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.05]);
+  const y = useTransform(scrollYProgress, [0, 0.5], [0, 80]);
 
   const headline = settings.heroHeadline || DEFAULT_SETTINGS.heroHeadline!;
   const subheadline = settings.heroSubheadline || DEFAULT_SETTINGS.heroSubheadline!;
-  const tagline = settings.heroTagline || DEFAULT_SETTINGS.heroTagline!;
-
-  // Split headline by line break indicator
-  const headlineParts = headline.split(" ");
-  const midpoint = Math.ceil(headlineParts.length / 2);
-  const line1 = headlineParts.slice(0, midpoint).join(" ");
-  const line2 = headlineParts.slice(midpoint).join(" ");
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center bg-stone-950 overflow-hidden">
+    <section ref={ref} className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
+      {/* Video Background - Solar Panels */}
       <motion.div style={{ scale }} className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80"
-          alt="Solar infrastructure"
-          className="w-full h-full object-cover opacity-40"
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover opacity-70"
+          poster="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80"
+          src="https://videos.pexels.com/video-files/2800369/2800369-uhd_2560_1440_30fps.mp4"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-stone-950/60 via-stone-950/40 to-stone-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black" />
       </motion.div>
 
-      <motion.div style={{ opacity, y }} className="relative z-10 max-w-[1800px] mx-auto px-6 lg:px-12 w-full">
-        <div className="max-w-5xl">
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="text-stone-400 text-sm uppercase tracking-[0.3em] mb-6"
-          >
-            {tagline}
-          </motion.p>
-
+      {/* Content */}
+      <motion.div style={{ opacity, y }} className="relative z-10 max-w-[1800px] mx-auto px-8 lg:px-16 w-full">
+        <div className="max-w-4xl">
           <motion.h1
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="text-5xl md:text-7xl lg:text-8xl text-white font-light leading-[0.95] tracking-tight mb-8"
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="text-5xl md:text-7xl lg:text-[6rem] xl:text-[7rem] text-white font-light leading-[0.9] tracking-[-0.02em]"
           >
-            {line1}
-            <br />
-            <span className="text-stone-400">{line2}</span>
+            {headline}
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.7 }}
-            className="text-xl md:text-2xl text-stone-400 max-w-2xl leading-relaxed font-light"
+            transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 text-lg md:text-xl text-white/60 max-w-xl leading-relaxed font-light"
           >
             {subheadline}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="mt-12"
+          >
+            <a
+              href="#thesis"
+              className="inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
+            >
+              <span className="text-sm uppercase tracking-[0.2em]">Our Perspective</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </motion.div>
         </div>
       </motion.div>
 
+      {/* Scroll Indicator - Animated Mouse */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+        transition={{ delay: 2 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
       >
-        <span className="text-stone-500 text-xs uppercase tracking-[0.2em]">Scroll to Explore</span>
-        <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-          <ChevronDown className="w-5 h-5 text-stone-500" />
-        </motion.div>
+        {/* Mouse outline */}
+        <div className="relative w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+          {/* Scrolling dot */}
+          <motion.div 
+            animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }} 
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="w-1 h-2 bg-white/60 rounded-full mt-2"
+          />
+        </div>
+        {/* Scroll text */}
+        <motion.p 
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="text-white/40 text-[10px] tracking-[0.3em] uppercase"
+        >
+          Scroll
+        </motion.p>
       </motion.div>
+
+      {/* Minimal Corner Branding */}
+      <div className="absolute bottom-10 right-10 hidden lg:block">
+        <p className="text-white/30 text-xs uppercase tracking-[0.3em]">
+          Energy Infrastructure
+        </p>
+      </div>
     </section>
   );
 }
@@ -405,75 +430,64 @@ function ThesisSection({ settings }: { settings: SiteSettings }) {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="thesis" ref={ref} className="py-32 lg:py-48 bg-stone-950">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1 }}
-          >
-            <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-8">Our Perspective</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light leading-[1.1]">
-              {settings.thesisTitle || DEFAULT_SETTINGS.thesisTitle}
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="flex flex-col justify-end"
-          >
-            <p className="text-lg text-stone-400 leading-relaxed">
-              {settings.thesisDescription || DEFAULT_SETTINGS.thesisDescription}
-            </p>
-          </motion.div>
-        </div>
+    <section id="thesis" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-neutral-900">
+      <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
+        {/* Large Statement */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-5xl"
+        >
+          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white font-light leading-[1.1] tracking-[-0.02em]">
+            {settings.thesisTitle || DEFAULT_SETTINGS.thesisTitle}
+          </h2>
+        </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mt-24 pt-12 border-t border-stone-800/50"
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-16 max-w-2xl ml-auto"
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            <div className="border-l-2 border-stone-700 pl-6">
-              <p className="text-4xl lg:text-5xl text-white font-light tracking-tight mb-2">
-                {settings.stat1Value || DEFAULT_SETTINGS.stat1Value}
-              </p>
-              <p className="text-stone-500 text-xs uppercase tracking-[0.15em]">
-                {settings.stat1Label || DEFAULT_SETTINGS.stat1Label}
-              </p>
-            </div>
-            <div className="border-l-2 border-stone-700 pl-6">
-              <p className="text-4xl lg:text-5xl text-white font-light tracking-tight mb-2">
-                {settings.stat2Value || DEFAULT_SETTINGS.stat2Value}
-              </p>
-              <p className="text-stone-500 text-xs uppercase tracking-[0.15em]">
-                {settings.stat2Label || DEFAULT_SETTINGS.stat2Label}
-              </p>
-            </div>
-            <div className="border-l-2 border-stone-700 pl-6">
-              <p className="text-4xl lg:text-5xl text-white font-light tracking-tight mb-2">
-                {settings.stat4Value || DEFAULT_SETTINGS.stat4Value}
-              </p>
-              <p className="text-stone-500 text-xs uppercase tracking-[0.15em]">
-                {settings.stat4Label || DEFAULT_SETTINGS.stat4Label}
-              </p>
-            </div>
-            <div className="border-l-2 border-stone-700 pl-6">
-              <p className="text-4xl lg:text-5xl text-white font-light tracking-tight mb-2">
-                {settings.stat3Value || DEFAULT_SETTINGS.stat3Value}
-              </p>
-              <p className="text-stone-500 text-xs uppercase tracking-[0.15em]">
-                {settings.stat3Label || DEFAULT_SETTINGS.stat3Label}
-              </p>
-            </div>
+          <p className="text-lg text-white/50 leading-relaxed">
+            {settings.thesisDescription || DEFAULT_SETTINGS.thesisDescription}
+          </p>
+        </motion.div>
+
+        {/* Stats Grid - More Minimal */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="mt-32 pt-16 border-t border-white/10"
+        >
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+            {[
+              { value: settings.stat1Value || DEFAULT_SETTINGS.stat1Value, label: settings.stat1Label || DEFAULT_SETTINGS.stat1Label },
+              { value: settings.stat2Value || DEFAULT_SETTINGS.stat2Value, label: settings.stat2Label || DEFAULT_SETTINGS.stat2Label },
+              { value: settings.stat4Value || DEFAULT_SETTINGS.stat4Value, label: settings.stat4Label || DEFAULT_SETTINGS.stat4Label },
+              { value: settings.stat3Value || DEFAULT_SETTINGS.stat3Value, label: settings.stat3Label || DEFAULT_SETTINGS.stat3Label },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.6 + i * 0.1 }}
+                className="group"
+              >
+                <p className="text-4xl lg:text-5xl xl:text-6xl text-white font-light tracking-tight mb-3">
+                  {stat.value}
+                </p>
+                <p className="text-white/40 text-xs uppercase tracking-[0.15em]">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
           </div>
           
           {/* Stats Source */}
-          <p className="mt-8 text-stone-600 text-xs text-center">
+          <p className="mt-12 text-white/20 text-xs">
             {settings.statsSource || DEFAULT_SETTINGS.statsSource}
           </p>
         </motion.div>
@@ -495,100 +509,97 @@ function SectorsSection({ sectors }: { sectors: Sector[] }) {
 
   return (
     <>
-      <section id="sectors" ref={ref} className="bg-stone-900">
-        <div className="max-w-[1800px] mx-auto px-6 lg:px-12 py-24">
+      <section id="sectors" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-black">
+        {/* Section Header */}
+        <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="flex items-end justify-between mb-16"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-20"
           >
-            <div>
-              <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-4">Investment Focus</p>
-              <h2 className="text-4xl md:text-5xl text-white font-light">Our Sectors</h2>
-            </div>
-            <p className="text-stone-400 text-lg max-w-md hidden lg:block">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light tracking-[-0.02em]">
+              Our Sectors
+            </h2>
+            <p className="mt-8 text-lg text-white/50 max-w-xl">
               We partner with world-class operators to build infrastructure that powers the energy transition.
             </p>
           </motion.div>
+
+          {/* Sector Cards with Images */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {displaySectors.map((sector, index) => (
+              <motion.div
+                key={sector._id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: index * 0.15 }}
+                className="group relative cursor-pointer"
+                onClick={() => setSelectedSector({ ...sector, image: SECTOR_IMAGES[index % SECTOR_IMAGES.length] })}
+              >
+                {/* Image */}
+                <div className="aspect-[4/3] overflow-hidden mb-6 bg-black">
+                  <img
+                    src={SECTOR_IMAGES[index % SECTOR_IMAGES.length]}
+                    alt={sector.name}
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="flex items-start justify-between">
+                  <div>
+                    <span className="text-white/30 text-xs tracking-wider mb-2 block">0{index + 1}</span>
+                    <h3 className="text-2xl lg:text-3xl text-white font-light tracking-[-0.02em] group-hover:text-white/80 transition-colors">
+                      {sector.name}
+                    </h3>
+                    <p className="mt-3 text-white/40 text-sm max-w-xs">{sector.shortDescription}</p>
+                  </div>
+                  <ArrowUpRight className="w-5 h-5 text-white/20 group-hover:text-white/60 transition-colors flex-shrink-0" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-
-        {displaySectors.map((sector, index) => (
-          <motion.div
-            key={sector._id}
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: index * 0.2 }}
-            className="group relative cursor-pointer border-t border-stone-800 hover:bg-stone-800/50 transition-all duration-500"
-            onClick={() => setSelectedSector({ ...sector, image: SECTOR_IMAGES[index % SECTOR_IMAGES.length] })}
-          >
-            <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
-              <div className="grid lg:grid-cols-12 gap-8 py-12 lg:py-16 items-center">
-                <div className="lg:col-span-4 overflow-hidden">
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img
-                      src={SECTOR_IMAGES[index % SECTOR_IMAGES.length]}
-                      alt={sector.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  </div>
-                </div>
-
-                <div className="lg:col-span-6">
-                  <p className="text-stone-500 text-sm uppercase tracking-wider mb-3">{sector.shortDescription}</p>
-                  <h3 className="text-3xl lg:text-4xl text-white font-light mb-4 group-hover:text-stone-300 transition-colors">
-                    {sector.name}
-                  </h3>
-                  <p className="text-stone-400 text-lg leading-relaxed">{sector.fullDescription}</p>
-                </div>
-
-                <div className="lg:col-span-2 flex justify-end">
-                  <div className="w-14 h-14 rounded-full border border-stone-700 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
-                    <ArrowUpRight className="w-5 h-5 text-stone-400 group-hover:text-stone-950 transition-colors" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
       </section>
 
+      {/* Sector Modal */}
       <AnimatePresence>
         {selectedSector && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/90 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl"
             onClick={() => setSelectedSector(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 50 }}
+              initial={{ opacity: 0, scale: 0.95, y: 40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 50 }}
+              exit={{ opacity: 0, scale: 0.95, y: 40 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-stone-900 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-neutral-900 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="aspect-video overflow-hidden">
                 <img src={selectedSector.image} alt={selectedSector.name} className="w-full h-full object-cover" />
               </div>
-              <div className="p-8 lg:p-12">
-                <div className="flex items-center gap-4 mb-6">
+              <div className="p-10 lg:p-14">
+                <div className="flex items-center gap-6 mb-6">
                   {selectedSector.stats?.map((stat, i) => (
-                    <span key={i} className="text-sm text-stone-400 uppercase tracking-wider">
-                      {stat.value}
+                    <span key={i} className="text-sm text-white/40 uppercase tracking-wider">
+                      {stat.value} <span className="text-white/20">{stat.label}</span>
                     </span>
                   ))}
                 </div>
-                <h3 className="text-4xl text-white font-light mb-2">{selectedSector.name}</h3>
-                <p className="text-stone-500 mb-8">{selectedSector.shortDescription}</p>
-                <p className="text-stone-300 text-lg leading-relaxed mb-10">{selectedSector.fullDescription}</p>
+                <h3 className="text-4xl lg:text-5xl text-white font-light tracking-[-0.02em]">{selectedSector.name}</h3>
+                <p className="mt-4 text-white/40 text-lg">{selectedSector.shortDescription}</p>
+                <p className="mt-8 text-white/60 text-lg leading-relaxed">{selectedSector.fullDescription}</p>
                 <button
                   onClick={() => setSelectedSector(null)}
-                  className="text-sm text-stone-500 hover:text-white transition-colors uppercase tracking-wider"
+                  className="mt-12 text-sm text-white/40 hover:text-white transition-colors uppercase tracking-wider"
                 >
-                  Close
+                  ← Close
                 </button>
               </div>
             </motion.div>
@@ -606,109 +617,164 @@ function SectorsSection({ sectors }: { sectors: Sector[] }) {
 function EcosystemSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedStep, setSelectedStep] = useState<{ num: string; title: string; desc: string; details: string; stats: string } | null>(null);
+
+  const steps = [
+    { 
+      num: "01", 
+      title: "Generation", 
+      desc: "Utility-scale solar PV",
+      details: "We develop and acquire utility-scale solar photovoltaic projects across the American Southwest, targeting high-irradiance zones with proven grid interconnection pathways. Our projects range from 50MW to 500MW capacity.",
+      stats: "1+ GW pipeline"
+    },
+    { 
+      num: "02", 
+      title: "Storage", 
+      desc: "Grid-scale BESS",
+      details: "Battery Energy Storage Systems (BESS) enable 24/7 power delivery by storing excess solar generation for dispatch during peak demand periods. We co-locate storage with generation assets to maximize value capture.",
+      stats: "4-hour duration"
+    },
+    { 
+      num: "03", 
+      title: "Mobility", 
+      desc: "EV charging networks",
+      details: "Our EV charging infrastructure targets high-traffic corridors and fleet depots across the Southwest. We provide turnkey charging solutions powered by our renewable generation assets.",
+      stats: "500+ planned stations"
+    },
+    { 
+      num: "04", 
+      title: "Compute", 
+      desc: "AI data centers",
+      details: "Hyperscale data centers require massive amounts of reliable, low-cost power. We develop solar-powered compute facilities that offer corporate buyers direct access to renewable energy at scale.",
+      stats: "100MW+ capacity"
+    },
+  ];
 
   return (
-    <section ref={ref} className="py-32 lg:py-40 bg-stone-950">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-          className="text-center mb-24"
-        >
-          <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-8">Integrated Value Chain</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light leading-[1.1] max-w-4xl mx-auto">
-            Capturing value at every stage of the electron's journey
-          </h2>
-        </motion.div>
+    <>
+      <section ref={ref} className="relative min-h-screen flex flex-col justify-center py-20 lg:py-32 overflow-hidden">
+        {/* Video Background - Solar Farm */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover"
+            poster="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80"
+            src="https://videos.pexels.com/video-files/5561459/5561459-uhd_2732_1440_25fps.mp4"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="relative"
-        >
-          <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-stone-700 to-transparent hidden md:block" style={{ transform: 'translateY(-60px)' }} />
+        <div className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center max-w-4xl mx-auto mb-24"
+          >
+            <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6">Integrated Platform</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light leading-[1.1] tracking-[-0.02em]">
+              Capturing value at every stage of the electron's journey
+            </h2>
+          </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-2">
-            {[
-              { title: "Generation", desc: "Utility-scale solar PV", icon: "sun" },
-              { title: "Storage", desc: "Grid-scale BESS", icon: "battery" },
-              { title: "Mobility", desc: "EV charging networks", icon: "zap" },
-              { title: "Compute", desc: "AI data centers", icon: "server" },
-            ].map((item, index) => (
-              <div key={item.title} className="relative bg-stone-900/80 backdrop-blur p-8 lg:p-10 text-center group hover:bg-stone-800/80 transition-all duration-500">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-stone-800 border border-stone-700 flex items-center justify-center group-hover:border-stone-500 group-hover:bg-stone-700 transition-all">
-                  {item.icon === "sun" && (
-                    <svg className="w-8 h-8 text-stone-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <circle cx="12" cy="12" r="4" />
-                      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                    </svg>
-                  )}
-                  {item.icon === "battery" && (
-                    <svg className="w-8 h-8 text-stone-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <rect x="6" y="7" width="12" height="10" rx="1" />
-                      <path d="M10 7V5a2 2 0 012-2v0a2 2 0 012 2v2" />
-                      <path d="M10 12h4" />
-                      <path d="M12 10v4" />
-                    </svg>
-                  )}
-                  {item.icon === "zap" && (
-                    <svg className="w-8 h-8 text-stone-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                    </svg>
-                  )}
-                  {item.icon === "server" && (
-                    <svg className="w-8 h-8 text-stone-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <rect x="4" y="4" width="16" height="6" rx="1" />
-                      <rect x="4" y="14" width="16" height="6" rx="1" />
-                      <circle cx="8" cy="7" r="1" fill="currentColor" />
-                      <circle cx="8" cy="17" r="1" fill="currentColor" />
-                    </svg>
-                  )}
-                </div>
-                <h4 className="text-lg text-white font-light mb-2">{item.title}</h4>
-                <p className="text-stone-500 text-sm">{item.desc}</p>
-                {index < 3 && (
-                  <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                    <ArrowRight className="w-6 h-6 text-stone-600" />
+          {/* Integrated Flow Diagram - Clickable */}
+          <div className="flex flex-col lg:flex-row items-stretch justify-between gap-4">
+            {steps.map((item, index) => (
+              <React.Fragment key={item.title}>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
+                  onClick={() => setSelectedStep(item)}
+                  className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 p-8 lg:p-10 group hover:bg-white/15 hover:border-white/20 transition-all duration-500 cursor-pointer"
+                >
+                  <span className="text-white/30 text-xs tracking-wider block mb-6">{item.num}</span>
+                  <h4 className="text-2xl lg:text-3xl text-white font-light mb-3 group-hover:text-white transition-colors">{item.title}</h4>
+                  <p className="text-white/40 text-sm group-hover:text-white/60 transition-colors">{item.desc}</p>
+                  <div className="mt-6 flex items-center gap-2 text-white/30 group-hover:text-white/60 transition-colors">
+                    <span className="text-xs tracking-wider uppercase">Learn more</span>
+                    <ArrowUpRight className="w-3 h-3" />
+                  </div>
+                </motion.div>
+                {/* Arrow connector between items */}
+                {index < steps.length - 1 && (
+                  <div className="hidden lg:flex items-center justify-center px-2">
+                    <ArrowRight className="w-6 h-6 text-white/30" />
                   </div>
                 )}
-              </div>
+              </React.Fragment>
             ))}
           </div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="mt-16 pt-12 border-t border-stone-800/30"
-        >
-          <div className="max-w-[1200px] mx-auto">
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-16">
-              <div className="text-center">
-                <p className="text-2xl lg:text-3xl text-white font-light mb-2">Lower Cost</p>
-                <p className="text-stone-500 text-sm">Captive generation reduces OPEX</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl lg:text-3xl text-white font-light mb-2">Higher Margin</p>
-                <p className="text-stone-500 text-sm">Vertical integration captures value</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl lg:text-3xl text-white font-light mb-2">Grid Resilience</p>
-                <p className="text-stone-500 text-sm">Battery storage ensures 24/7 uptime</p>
-              </div>
+          {/* Benefits Row */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="mt-20 pt-12 border-t border-white/10"
+          >
+            <div className="grid md:grid-cols-3 gap-12">
+              {[
+                { title: "Lower Cost", desc: "Captive generation reduces OPEX" },
+                { title: "Higher Margin", desc: "Vertical integration captures value" },
+                { title: "Grid Resilience", desc: "Battery storage ensures 24/7 uptime" },
+              ].map((item, i) => (
+                <div key={item.title}>
+                  <p className="text-xl lg:text-2xl text-white font-light">{item.title}</p>
+                  <p className="mt-2 text-white/40 text-sm">{item.desc}</p>
+                </div>
+              ))}
             </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Ecosystem Step Popup */}
+      <AnimatePresence>
+        {selectedStep && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl"
+            onClick={() => setSelectedStep(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.95 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-zinc-900 border border-white/10 max-w-xl w-full p-10 lg:p-14"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="text-amber-400/80 text-sm tracking-wider block mb-4">{selectedStep.num}</span>
+              <h3 className="text-4xl lg:text-5xl text-white font-light mb-4">{selectedStep.title}</h3>
+              <p className="text-white/40 text-lg mb-8">{selectedStep.desc}</p>
+              
+              <p className="text-white/70 leading-relaxed mb-10">{selectedStep.details}</p>
+              
+              <div className="pt-8 border-t border-white/10 flex justify-end">
+                <button
+                  onClick={() => setSelectedStep(null)}
+                  className="text-xs text-white/40 hover:text-white transition-colors tracking-wider uppercase"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
 // ============================================================================
-// ROTATING TEXT SECTION
+// ROTATING TEXT SECTION (with solar video background)
 // ============================================================================
 
 function RotatingTextSection({ settings }: { settings: SiteSettings }) {
@@ -721,37 +787,51 @@ function RotatingTextSection({ settings }: { settings: SiteSettings }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % words.length);
-    }, 2000);
+    }, 2500);
     return () => clearInterval(interval);
   }, [words.length]);
 
   return (
-    <section ref={ref} className="py-32 lg:py-48 bg-white overflow-hidden">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+    <section ref={ref} className="relative min-h-screen flex flex-col justify-center py-20 lg:py-32 overflow-hidden">
+      {/* Solar Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+          src="https://videos.pexels.com/video-files/6976543/6976543-uhd_2732_1440_25fps.mp4"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/70" />
+      </div>
+
+      <div className="max-w-[1600px] mx-auto px-8 lg:px-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-          className="text-center"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-stone-900 font-light leading-[1.15] max-w-5xl mx-auto">
-            The grid powers everything
+          <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-8">Powering the Transition</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white font-light leading-[1.1] tracking-[-0.02em] max-w-5xl">
+            Digital transformation is everywhere
             <br />
-            <span className="text-stone-400">except for </span>
-            <span className="relative inline-block">
+            <span className="text-white/40">except for </span>
+            <span className="relative inline-block text-amber-400">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentIndex}
-                  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -30, filter: "blur(10px)" }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-stone-900 inline-block"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block"
                 >
                   {words[currentIndex]}
                 </motion.span>
               </AnimatePresence>
-              <span className="absolute -bottom-2 left-0 right-0 h-0.5 bg-stone-900" />
             </span>
           </h2>
 
@@ -759,7 +839,7 @@ function RotatingTextSection({ settings }: { settings: SiteSettings }) {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.3 }}
-            className="mt-12 text-xl text-stone-500 max-w-2xl mx-auto"
+            className="mt-16 text-lg text-white/50 max-w-xl"
           >
             We're building the infrastructure that closes the gap—connecting clean power to the places that need it most.
           </motion.p>
@@ -782,29 +862,26 @@ function OpportunityZoneSection({ settings }: { settings: SiteSettings }) {
   const learnMoreText = settings.opportunityZoneLearnMoreText || DEFAULT_SETTINGS.opportunityZoneLearnMoreText!;
 
   return (
-    <section ref={ref} className="py-32 lg:py-48 bg-stone-950">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+    <section ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-neutral-950 border-t border-white/5">
+      <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-          className="grid lg:grid-cols-2 gap-16 items-center"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="grid lg:grid-cols-2 gap-20 items-center"
         >
           <div>
-            <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-6">
-              {settings.opportunityZoneSubtitle || DEFAULT_SETTINGS.opportunityZoneSubtitle}
-            </p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light leading-tight mb-8">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light leading-[1.1] tracking-[-0.02em]">
               {settings.opportunityZoneTitle || DEFAULT_SETTINGS.opportunityZoneTitle}
             </h2>
-            <p className="text-xl text-stone-400 leading-relaxed mb-8">
+            <p className="mt-8 text-lg text-white/50 leading-relaxed">
               {settings.opportunityZoneDescription || DEFAULT_SETTINGS.opportunityZoneDescription}
             </p>
-            <div className="space-y-4 mb-10">
+            <div className="mt-10 space-y-4">
               {bullets.map((item) => (
-                <div key={item} className="flex items-center gap-4">
-                  <div className="w-2 h-2 bg-white rounded-full" />
-                  <p className="text-stone-300">{item}</p>
+                <div key={item} className="flex items-start gap-4">
+                  <div className="w-1.5 h-1.5 bg-white/40 rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-white/70">{item}</p>
                 </div>
               ))}
             </div>
@@ -814,28 +891,22 @@ function OpportunityZoneSection({ settings }: { settings: SiteSettings }) {
               href={learnMoreUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-6 py-3 border border-stone-700 text-white hover:bg-white hover:text-stone-950 transition-all duration-300 group"
+              className="inline-flex items-center gap-3 text-white/60 hover:text-white transition-colors duration-500 group"
             >
-              <span className="text-sm uppercase tracking-wider">{learnMoreText}</span>
+              <span className="text-sm tracking-[0.15em] uppercase">{learnMoreText}</span>
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           </div>
-          <div className="relative">
-            <div className="aspect-square bg-stone-900 rounded-lg overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
-                alt="Solar installation"
-                className="w-full h-full object-cover opacity-60"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <p className="text-5xl text-white font-light mb-2">
-                  {settings.opportunityZoneStatValue || DEFAULT_SETTINGS.opportunityZoneStatValue}
-                </p>
-                <p className="text-stone-400">
-                  {settings.opportunityZoneStatLabel || DEFAULT_SETTINGS.opportunityZoneStatLabel}
-                </p>
-              </div>
+
+          {/* Stat Card */}
+          <div className="flex items-end justify-end">
+            <div className="border-l border-white/10 pl-12">
+              <p className="text-7xl lg:text-8xl text-white font-extralight tracking-tight mb-4">
+                {settings.opportunityZoneStatValue || DEFAULT_SETTINGS.opportunityZoneStatValue}
+              </p>
+              <p className="text-white/40 text-sm tracking-[0.15em] uppercase">
+                {settings.opportunityZoneStatLabel || DEFAULT_SETTINGS.opportunityZoneStatLabel}
+              </p>
             </div>
           </div>
         </motion.div>
@@ -850,7 +921,6 @@ function OpportunityZoneSection({ settings }: { settings: SiteSettings }) {
 
 function TeamSection({ team }: { team: TeamMember[] }) {
   const ref = useRef(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
@@ -858,56 +928,54 @@ function TeamSection({ team }: { team: TeamMember[] }) {
 
   return (
     <>
-      <section id="team" ref={ref} className="py-32 lg:py-48 bg-stone-900">
-        <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+      <section id="team" ref={ref} className="min-h-screen flex flex-col justify-center py-20 lg:py-32 bg-zinc-900 border-t border-white/10">
+        <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="mb-16"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 1 }}
+            className="mb-24"
           >
-            <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-4">Leadership</p>
-            <h2 className="text-4xl md:text-5xl text-white font-light">Our Team</h2>
+            <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6">Leadership</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl text-white font-extralight tracking-[-0.02em]">
+              Our Team
+            </h2>
           </motion.div>
-        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          ref={scrollContainerRef}
-          className="overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          <div className="flex gap-6 px-6 lg:px-12 pb-4" style={{ width: 'max-content' }}>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
             {displayTeam.map((member, index) => {
               const imageUrl = member.image 
                 ? urlFor(member.image)?.width(400).height(533).url() 
-                : `https://api.dicebear.com/7.x/shapes/svg?seed=m2pv${index + 1}&backgroundColor=1c1917&shape1Color=78716c&shape2Color=57534e&shape3Color=44403c`;
+                : `https://api.dicebear.com/7.x/shapes/svg?seed=m2pv${index + 1}&backgroundColor=0a0a0a&shape1Color=404040&shape2Color=262626&shape3Color=171717`;
               
               return (
                 <motion.div
                   key={member._id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 40 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group flex-shrink-0 w-[280px] lg:w-[320px] cursor-pointer"
+                  transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="group cursor-pointer"
                   onClick={() => setSelectedMember(member)}
                 >
-                  <div className="aspect-[3/4] overflow-hidden mb-6 bg-stone-800">
+                  <div className="aspect-[3/4] overflow-hidden mb-8 bg-neutral-800">
                     <img
                       src={imageUrl || ''}
                       alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                     />
                   </div>
-                  <h3 className="text-xl text-white font-light mb-1 group-hover:text-stone-300 transition-colors">{member.name}</h3>
-                  <p className="text-stone-500 text-sm">{member.title}</p>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="text-xl text-white font-light mb-2">{member.name}</h3>
+                      <p className="text-white/40 text-sm">{member.title}</p>
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors" />
+                  </div>
                 </motion.div>
               );
             })}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Team Member Popup */}
@@ -917,50 +985,50 @@ function TeamSection({ team }: { team: TeamMember[] }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/90 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl"
             onClick={() => setSelectedMember(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 50 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-stone-900 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-neutral-950 border border-white/10 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="grid md:grid-cols-2">
-                <div className="aspect-[3/4] md:aspect-auto overflow-hidden bg-stone-800">
+                <div className="aspect-[3/4] md:aspect-auto overflow-hidden bg-neutral-900">
                   <img
                     src={selectedMember.image 
                       ? urlFor(selectedMember.image)?.width(600).height(800).url() || ''
-                      : `https://api.dicebear.com/7.x/shapes/svg?seed=m2pv${selectedMember._id}&backgroundColor=1c1917`
+                      : `https://api.dicebear.com/7.x/shapes/svg?seed=m2pv${selectedMember._id}&backgroundColor=0a0a0a`
                     }
                     alt={selectedMember.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-8 lg:p-10 flex flex-col justify-center">
-                  <h3 className="text-3xl text-white font-light mb-2">{selectedMember.name}</h3>
-                  <p className="text-stone-400 text-lg mb-6">{selectedMember.title}</p>
+                <div className="p-10 lg:p-12 flex flex-col justify-center">
+                  <h3 className="text-3xl text-white font-extralight tracking-[-0.02em] mb-3">{selectedMember.name}</h3>
+                  <p className="text-white/40 text-sm tracking-[0.1em] uppercase mb-8">{selectedMember.title}</p>
                   {selectedMember.bio && (
-                    <p className="text-stone-300 leading-relaxed mb-8">{selectedMember.bio}</p>
+                    <p className="text-white/60 leading-relaxed mb-10 font-light">{selectedMember.bio}</p>
                   )}
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-6 pt-6 border-t border-white/10">
                     {selectedMember.linkedIn && (
                       <a
                         href={selectedMember.linkedIn}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-stone-400 hover:text-white transition-colors"
+                        className="flex items-center gap-2 text-white/40 hover:text-white transition-colors"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Linkedin className="w-5 h-5" />
-                        <span className="text-sm">LinkedIn</span>
+                        <Linkedin className="w-4 h-4" />
+                        <span className="text-xs tracking-[0.1em] uppercase">LinkedIn</span>
                       </a>
                     )}
                     <button
                       onClick={() => setSelectedMember(null)}
-                      className="ml-auto text-sm text-stone-500 hover:text-white transition-colors uppercase tracking-wider"
+                      className="ml-auto text-xs text-white/30 hover:text-white transition-colors tracking-[0.1em] uppercase"
                     >
                       Close
                     </button>
@@ -994,21 +1062,21 @@ function InsightsSection({ insights }: { insights: Insight[] }) {
         const text = block.children?.map((child: any) => child.text).join('') || '';
         switch (block.style) {
           case 'h2':
-            return <h2 key={index} className="text-2xl text-white font-light mt-8 mb-4">{text}</h2>;
+            return <h2 key={index} className="text-2xl text-white font-extralight mt-10 mb-4">{text}</h2>;
           case 'h3':
-            return <h3 key={index} className="text-xl text-white font-light mt-6 mb-3">{text}</h3>;
+            return <h3 key={index} className="text-xl text-white font-light mt-8 mb-3">{text}</h3>;
           case 'blockquote':
-            return <blockquote key={index} className="border-l-2 border-stone-600 pl-4 italic text-stone-400 my-4">{text}</blockquote>;
+            return <blockquote key={index} className="border-l border-white/20 pl-6 italic text-white/50 my-6">{text}</blockquote>;
           default:
-            return <p key={index} className="text-stone-300 leading-relaxed mb-4">{text}</p>;
+            return <p key={index} className="text-white/60 leading-relaxed mb-5">{text}</p>;
         }
       }
       if (block._type === 'image') {
         const imgUrl = urlFor(block)?.width(800).url();
         return imgUrl ? (
-          <div key={index} className="my-6">
-            <img src={imgUrl} alt={block.alt || ''} className="w-full rounded" />
-            {block.caption && <p className="text-stone-500 text-sm mt-2 text-center">{block.caption}</p>}
+          <div key={index} className="my-8">
+            <img src={imgUrl} alt={block.alt || ''} className="w-full" />
+            {block.caption && <p className="text-white/30 text-sm mt-3">{block.caption}</p>}
           </div>
         ) : null;
       }
@@ -1018,22 +1086,24 @@ function InsightsSection({ insights }: { insights: Insight[] }) {
 
   return (
     <>
-      <section id="insights" ref={ref} className="py-32 lg:py-48 bg-stone-950">
-        <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+      <section id="insights" ref={ref} className="py-40 lg:py-56 bg-black">
+        <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="mb-16"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 1 }}
+            className="mb-24"
           >
-            <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-4">News & Insights</p>
-            <h2 className="text-4xl md:text-5xl text-white font-light">Latest Perspectives</h2>
+            <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6">Perspectives</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl text-white font-extralight tracking-[-0.02em]">
+              Latest Insights
+            </h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {displayInsights.map((insight, index) => {
               const imageUrl = insight.coverImage 
-                ? urlFor(insight.coverImage)?.width(800).height(500).url() 
+                ? urlFor(insight.coverImage)?.width(600).height(400).url() 
                 : INSIGHT_IMAGES[index % INSIGHT_IMAGES.length];
               
               return (
@@ -1041,28 +1111,25 @@ function InsightsSection({ insights }: { insights: Insight[] }) {
                   key={insight._id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                   className="group cursor-pointer"
                   onClick={() => setSelectedInsight(insight)}
                 >
-                  <div className="aspect-[16/10] overflow-hidden mb-6">
+                  {/* Cover Image */}
+                  <div className="aspect-[16/10] overflow-hidden mb-6 bg-neutral-900">
                     <img
                       src={imageUrl || ''}
                       alt={insight.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="text-xs text-stone-500 uppercase tracking-wider">{insight.category}</span>
+                  <div className="flex items-center gap-6 mb-4">
+                    <span className="text-white/30 text-xs tracking-[0.2em] uppercase">{insight.category}</span>
+                    <span className="text-white/20 text-xs">{insight.date}</span>
                   </div>
-                  <p className="text-xs text-stone-500 mb-3">{insight.date} · {insight.readTime}</p>
-                  <h3 className="text-xl text-white font-light mb-4 group-hover:text-stone-400 transition-colors leading-tight">
+                  <h3 className="text-xl lg:text-2xl text-white font-light group-hover:text-white/60 transition-colors duration-500 leading-tight">
                     {insight.title}
                   </h3>
-                  <span className="inline-flex items-center gap-2 text-xs text-stone-500 uppercase tracking-wider group-hover:text-white transition-colors">
-                    Read More
-                    <ArrowRight className="w-3 h-3" />
-                  </span>
                 </motion.article>
               );
             })}
@@ -1077,49 +1144,44 @@ function InsightsSection({ insights }: { insights: Insight[] }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/90 backdrop-blur-xl overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl overflow-y-auto"
             onClick={() => setSelectedInsight(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 50 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-stone-900 max-w-3xl w-full max-h-[90vh] overflow-y-auto my-8"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-neutral-950 border border-white/10 max-w-3xl w-full max-h-[90vh] overflow-y-auto my-8"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Cover Image */}
-              <div className="aspect-video overflow-hidden">
-                <img
-                  src={selectedInsight.coverImage 
-                    ? urlFor(selectedInsight.coverImage)?.width(1200).height(675).url() || ''
-                    : INSIGHT_IMAGES[0]
-                  }
-                  alt={selectedInsight.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {selectedInsight.coverImage && (
+                <div className="aspect-video overflow-hidden border-b border-white/10">
+                  <img
+                    src={urlFor(selectedInsight.coverImage)?.width(1200).height(675).url() || ''}
+                    alt={selectedInsight.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
 
               {/* Content */}
-              <div className="p-8 lg:p-12">
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="text-xs text-stone-500 uppercase tracking-wider">{selectedInsight.category}</span>
-                  <span className="text-xs text-stone-600">•</span>
-                  <span className="text-xs text-stone-500">{selectedInsight.date}</span>
+              <div className="p-10 lg:p-14">
+                <div className="flex items-center gap-6 mb-6">
+                  <span className="text-white/30 text-xs tracking-[0.2em] uppercase">{selectedInsight.category}</span>
+                  <span className="text-white/20 text-xs">{selectedInsight.date}</span>
                   {selectedInsight.readTime && (
-                    <>
-                      <span className="text-xs text-stone-600">•</span>
-                      <span className="text-xs text-stone-500">{selectedInsight.readTime}</span>
-                    </>
+                    <span className="text-white/20 text-xs">{selectedInsight.readTime}</span>
                   )}
                 </div>
 
-                <h2 className="text-3xl lg:text-4xl text-white font-light mb-6 leading-tight">
+                <h2 className="text-3xl lg:text-4xl text-white font-extralight tracking-[-0.02em] mb-8 leading-tight">
                   {selectedInsight.title}
                 </h2>
 
                 {selectedInsight.excerpt && (
-                  <p className="text-lg text-stone-400 mb-8 leading-relaxed">
+                  <p className="text-xl text-white/50 mb-10 leading-relaxed font-light">
                     {selectedInsight.excerpt}
                   </p>
                 )}
@@ -1131,10 +1193,10 @@ function InsightsSection({ insights }: { insights: Insight[] }) {
                   </div>
                 )}
 
-                <div className="mt-10 pt-6 border-t border-stone-800">
+                <div className="mt-12 pt-8 border-t border-white/10">
                   <button
                     onClick={() => setSelectedInsight(null)}
-                    className="text-sm text-stone-500 hover:text-white transition-colors uppercase tracking-wider"
+                    className="text-xs text-white/30 hover:text-white transition-colors tracking-[0.1em] uppercase"
                   >
                     ← Back to Insights
                   </button>
@@ -1159,27 +1221,23 @@ function ContactSection({ settings }: { settings: SiteSettings }) {
   const email = settings.contactEmail || DEFAULT_SETTINGS.contactEmail!;
 
   return (
-    <section id="contact" ref={ref} className="py-32 lg:py-48 bg-stone-900">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+    <section id="contact" ref={ref} className="py-40 lg:py-56 bg-neutral-900">
+      <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1 }}
-          className="max-w-3xl"
         >
-          <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-6">Get In Touch</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light leading-tight mb-8">
-            Partner with M2PV Capital
+          <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6">Contact</p>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-extralight tracking-[-0.02em] mb-12 leading-[1.1]">
+            Let's build the future<br />of energy together.
           </h2>
-          <p className="text-xl text-stone-400 leading-relaxed mb-12 font-light">
-            For investor inquiries and partnership opportunities in energy infrastructure.
-          </p>
+          
           <a
             href={`mailto:${email}`}
-            className="inline-flex items-center gap-4 text-white hover:text-stone-400 transition-colors group"
+            className="inline-flex items-center gap-4 text-white/60 hover:text-white transition-colors duration-500 group"
           >
-            <Mail className="w-6 h-6" />
-            <span className="text-2xl font-light">{email}</span>
+            <span className="text-xl lg:text-2xl font-light">{email}</span>
             <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </a>
         </motion.div>
@@ -1193,18 +1251,30 @@ function ContactSection({ settings }: { settings: SiteSettings }) {
 // ============================================================================
 
 function Footer({ settings }: { settings: SiteSettings }) {
+  const email = settings.contactEmail || DEFAULT_SETTINGS.contactEmail!;
+  
   return (
-    <footer className="py-12 bg-stone-950 border-t border-stone-900">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+    <footer className="py-16 bg-black border-t border-white/5">
+      <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          {/* Logo - Same as header */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded flex items-center justify-center">
-              <span className="font-bold text-stone-950 text-sm">M2</span>
+            <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
+              <span className="font-semibold text-black text-xs">M2</span>
             </div>
-            <span className="text-white text-lg font-medium">M2PV Capital</span>
+            <span className="text-white text-lg font-light tracking-tight">M2PV Capital</span>
           </div>
 
-          <p className="text-stone-600 text-sm max-w-md">
+          {/* Email */}
+          <a 
+            href={`mailto:${email}`}
+            className="text-white/50 hover:text-white transition-colors text-sm"
+          >
+            {email}
+          </a>
+
+          {/* Disclaimer */}
+          <p className="text-white/20 text-xs max-w-md leading-relaxed text-right">
             {settings.footerDisclaimer || DEFAULT_SETTINGS.footerDisclaimer}
           </p>
         </div>
@@ -1223,15 +1293,15 @@ export default function PageClient({ settings, team, sectors, insights }: PageCl
   return (
     <main className="min-h-screen bg-stone-950 antialiased">
       <Navbar />
-      <HeroSection settings={siteSettings} />
-      <ThesisSection settings={siteSettings} />
-      <SectorsSection sectors={sectors} />
-      <EcosystemSection />
-      <RotatingTextSection settings={siteSettings} />
-      <OpportunityZoneSection settings={siteSettings} />
-      <TeamSection team={team} />
-      <InsightsSection insights={insights} />
-      <ContactSection settings={siteSettings} />
+      <div className="snap-section"><HeroSection settings={siteSettings} /></div>
+      <div className="snap-section"><ThesisSection settings={siteSettings} /></div>
+      <div className="snap-section"><SectorsSection sectors={sectors} /></div>
+      <div className="snap-section"><EcosystemSection /></div>
+      <div className="snap-section"><RotatingTextSection settings={siteSettings} /></div>
+      <div className="snap-section"><OpportunityZoneSection settings={siteSettings} /></div>
+      <div className="snap-section"><TeamSection team={team} /></div>
+      <div className="snap-section"><InsightsSection insights={insights} /></div>
+      <div className="snap-section"><ContactSection settings={siteSettings} /></div>
       <Footer settings={siteSettings} />
     </main>
   );
