@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 12, 10, 9;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Dark scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c1917;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #44403c;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #57534e;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* Smooth image transitions */
+.grayscale-hover {
+  filter: grayscale(100%);
+  transition: filter 500ms ease-in-out;
+}
+
+.grayscale-hover:hover {
+  filter: grayscale(0%);
+}
+
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
