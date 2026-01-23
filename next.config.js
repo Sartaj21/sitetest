@@ -10,8 +10,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
     ],
   },
+  // Required for Sanity Studio
+  transpilePackages: ['sanity'],
 };
 
 module.exports = nextConfig;
