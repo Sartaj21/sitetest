@@ -15,7 +15,18 @@ import {
   X,
   Mail,
   ChevronDown,
+  Linkedin,
 } from "lucide-react";
+import imageUrlBuilder from '@sanity/image-url';
+
+// Sanity image URL builder
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'axtaz9gs';
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
+
+function urlFor(source: any) {
+  if (!source) return null;
+  return imageUrlBuilder({ projectId, dataset }).image(source);
+}
 
 // ============================================================================
 // TYPES
@@ -66,8 +77,11 @@ export interface Sector {
 export interface Insight {
   _id: string;
   title: string;
+  slug?: { current: string };
+  coverImage?: any;
   category?: string;
   excerpt?: string;
+  body?: any[];
   date?: string;
   readTime?: string;
   featured?: boolean;
@@ -763,55 +777,126 @@ function TeamSection({ team }: { team: TeamMember[] }) {
   const ref = useRef(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   const displayTeam = team.length > 0 ? team : DEFAULT_TEAM;
 
   return (
-    <section id="team" ref={ref} className="py-32 lg:py-48 bg-stone-900">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-16"
-        >
-          <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-4">Leadership</p>
-          <h2 className="text-4xl md:text-5xl text-white font-light">Our Team</h2>
-        </motion.div>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        ref={scrollContainerRef}
-        className="overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
-        <div className="flex gap-6 px-6 lg:px-12 pb-4" style={{ width: 'max-content' }}>
-          {displayTeam.map((member, index) => (
-            <motion.div
-              key={member._id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group flex-shrink-0 w-[280px] lg:w-[320px]"
-            >
-              <div className="aspect-[3/4] overflow-hidden mb-6 bg-stone-800">
-                <img
-                  src={`https://api.dicebear.com/7.x/shapes/svg?seed=m2pv${index + 1}&backgroundColor=1c1917&shape1Color=78716c&shape2Color=57534e&shape3Color=44403c`}
-                  alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="text-xl text-white font-light mb-1">{member.name}</h3>
-              <p className="text-stone-500 text-sm mb-3">{member.title}</p>
-              <p className="text-stone-400 text-sm leading-relaxed line-clamp-3">{member.bio}</p>
-            </motion.div>
-          ))}
+    <>
+      <section id="team" ref={ref} className="py-32 lg:py-48 bg-stone-900">
+        <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="mb-16"
+          >
+            <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-4">Leadership</p>
+            <h2 className="text-4xl md:text-5xl text-white font-light">Our Team</h2>
+          </motion.div>
         </div>
-      </motion.div>
-    </section>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          ref={scrollContainerRef}
+          className="overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          <div className="flex gap-6 px-6 lg:px-12 pb-4" style={{ width: 'max-content' }}>
+            {displayTeam.map((member, index) => {
+              const imageUrl = member.image 
+                ? urlFor(member.image)?.width(400).height(533).url() 
+                : `https://api.dicebear.com/7.x/shapes/svg?seed=m2pv${index + 1}&backgroundColor=1c1917&shape1Color=78716c&shape2Color=57534e&shape3Color=44403c`;
+              
+              return (
+                <motion.div
+                  key={member._id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group flex-shrink-0 w-[280px] lg:w-[320px] cursor-pointer"
+                  onClick={() => setSelectedMember(member)}
+                >
+                  <div className="aspect-[3/4] overflow-hidden mb-6 bg-stone-800">
+                    <img
+                      src={imageUrl || ''}
+                      alt={member.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="text-xl text-white font-light mb-1 group-hover:text-stone-300 transition-colors">{member.name}</h3>
+                  <p className="text-stone-500 text-sm">{member.title}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Team Member Popup */}
+      <AnimatePresence>
+        {selectedMember && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/90 backdrop-blur-xl"
+            onClick={() => setSelectedMember(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 50 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-stone-900 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="grid md:grid-cols-2">
+                <div className="aspect-[3/4] md:aspect-auto overflow-hidden bg-stone-800">
+                  <img
+                    src={selectedMember.image 
+                      ? urlFor(selectedMember.image)?.width(600).height(800).url() || ''
+                      : `https://api.dicebear.com/7.x/shapes/svg?seed=m2pv${selectedMember._id}&backgroundColor=1c1917`
+                    }
+                    alt={selectedMember.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-8 lg:p-10 flex flex-col justify-center">
+                  <h3 className="text-3xl text-white font-light mb-2">{selectedMember.name}</h3>
+                  <p className="text-stone-400 text-lg mb-6">{selectedMember.title}</p>
+                  {selectedMember.bio && (
+                    <p className="text-stone-300 leading-relaxed mb-8">{selectedMember.bio}</p>
+                  )}
+                  <div className="flex items-center gap-4">
+                    {selectedMember.linkedIn && (
+                      <a
+                        href={selectedMember.linkedIn}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-stone-400 hover:text-white transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Linkedin className="w-5 h-5" />
+                        <span className="text-sm">LinkedIn</span>
+                      </a>
+                    )}
+                    <button
+                      onClick={() => setSelectedMember(null)}
+                      className="ml-auto text-sm text-stone-500 hover:text-white transition-colors uppercase tracking-wider"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -822,54 +907,169 @@ function TeamSection({ team }: { team: TeamMember[] }) {
 function InsightsSection({ insights }: { insights: Insight[] }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedInsight, setSelectedInsight] = useState<Insight | null>(null);
 
   const displayInsights = insights.length > 0 ? insights : DEFAULT_INSIGHTS;
 
-  return (
-    <section id="insights" ref={ref} className="py-32 lg:py-48 bg-stone-950">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-16"
-        >
-          <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-4">News & Insights</p>
-          <h2 className="text-4xl md:text-5xl text-white font-light">Latest Perspectives</h2>
-        </motion.div>
+  // Helper to render portable text simply
+  const renderBody = (body: any[]) => {
+    if (!body) return null;
+    return body.map((block, index) => {
+      if (block._type === 'block') {
+        const text = block.children?.map((child: any) => child.text).join('') || '';
+        switch (block.style) {
+          case 'h2':
+            return <h2 key={index} className="text-2xl text-white font-light mt-8 mb-4">{text}</h2>;
+          case 'h3':
+            return <h3 key={index} className="text-xl text-white font-light mt-6 mb-3">{text}</h3>;
+          case 'blockquote':
+            return <blockquote key={index} className="border-l-2 border-stone-600 pl-4 italic text-stone-400 my-4">{text}</blockquote>;
+          default:
+            return <p key={index} className="text-stone-300 leading-relaxed mb-4">{text}</p>;
+        }
+      }
+      if (block._type === 'image') {
+        const imgUrl = urlFor(block)?.width(800).url();
+        return imgUrl ? (
+          <div key={index} className="my-6">
+            <img src={imgUrl} alt={block.alt || ''} className="w-full rounded" />
+            {block.caption && <p className="text-stone-500 text-sm mt-2 text-center">{block.caption}</p>}
+          </div>
+        ) : null;
+      }
+      return null;
+    });
+  };
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {displayInsights.map((insight, index) => (
-            <motion.article
-              key={insight._id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="group cursor-pointer"
+  return (
+    <>
+      <section id="insights" ref={ref} className="py-32 lg:py-48 bg-stone-950">
+        <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="mb-16"
+          >
+            <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-4">News & Insights</p>
+            <h2 className="text-4xl md:text-5xl text-white font-light">Latest Perspectives</h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {displayInsights.map((insight, index) => {
+              const imageUrl = insight.coverImage 
+                ? urlFor(insight.coverImage)?.width(800).height(500).url() 
+                : INSIGHT_IMAGES[index % INSIGHT_IMAGES.length];
+              
+              return (
+                <motion.article
+                  key={insight._id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  className="group cursor-pointer"
+                  onClick={() => setSelectedInsight(insight)}
+                >
+                  <div className="aspect-[16/10] overflow-hidden mb-6">
+                    <img
+                      src={imageUrl || ''}
+                      alt={insight.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="flex items-center gap-4 mb-4">
+                    <span className="text-xs text-stone-500 uppercase tracking-wider">{insight.category}</span>
+                  </div>
+                  <p className="text-xs text-stone-500 mb-3">{insight.date} · {insight.readTime}</p>
+                  <h3 className="text-xl text-white font-light mb-4 group-hover:text-stone-400 transition-colors leading-tight">
+                    {insight.title}
+                  </h3>
+                  <span className="inline-flex items-center gap-2 text-xs text-stone-500 uppercase tracking-wider group-hover:text-white transition-colors">
+                    Read More
+                    <ArrowRight className="w-3 h-3" />
+                  </span>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Insight Popup */}
+      <AnimatePresence>
+        {selectedInsight && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/90 backdrop-blur-xl overflow-y-auto"
+            onClick={() => setSelectedInsight(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 50 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-stone-900 max-w-3xl w-full max-h-[90vh] overflow-y-auto my-8"
+              onClick={(e) => e.stopPropagation()}
             >
-              <div className="aspect-[16/10] overflow-hidden mb-6">
+              {/* Cover Image */}
+              <div className="aspect-video overflow-hidden">
                 <img
-                  src={INSIGHT_IMAGES[index % INSIGHT_IMAGES.length]}
-                  alt={insight.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  src={selectedInsight.coverImage 
+                    ? urlFor(selectedInsight.coverImage)?.width(1200).height(675).url() || ''
+                    : INSIGHT_IMAGES[0]
+                  }
+                  alt={selectedInsight.title}
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <div className="flex items-center gap-4 mb-4">
-                <span className="text-xs text-stone-500 uppercase tracking-wider">{insight.category}</span>
+
+              {/* Content */}
+              <div className="p-8 lg:p-12">
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="text-xs text-stone-500 uppercase tracking-wider">{selectedInsight.category}</span>
+                  <span className="text-xs text-stone-600">•</span>
+                  <span className="text-xs text-stone-500">{selectedInsight.date}</span>
+                  {selectedInsight.readTime && (
+                    <>
+                      <span className="text-xs text-stone-600">•</span>
+                      <span className="text-xs text-stone-500">{selectedInsight.readTime}</span>
+                    </>
+                  )}
+                </div>
+
+                <h2 className="text-3xl lg:text-4xl text-white font-light mb-6 leading-tight">
+                  {selectedInsight.title}
+                </h2>
+
+                {selectedInsight.excerpt && (
+                  <p className="text-lg text-stone-400 mb-8 leading-relaxed">
+                    {selectedInsight.excerpt}
+                  </p>
+                )}
+
+                {/* Article Body */}
+                {selectedInsight.body && (
+                  <div className="prose prose-invert max-w-none">
+                    {renderBody(selectedInsight.body)}
+                  </div>
+                )}
+
+                <div className="mt-10 pt-6 border-t border-stone-800">
+                  <button
+                    onClick={() => setSelectedInsight(null)}
+                    className="text-sm text-stone-500 hover:text-white transition-colors uppercase tracking-wider"
+                  >
+                    ← Back to Insights
+                  </button>
+                </div>
               </div>
-              <p className="text-xs text-stone-500 mb-3">{insight.date} · {insight.readTime}</p>
-              <h3 className="text-xl text-white font-light mb-4 group-hover:text-stone-400 transition-colors leading-tight">
-                {insight.title}
-              </h3>
-              <span className="inline-flex items-center gap-2 text-xs text-stone-500 uppercase tracking-wider group-hover:text-white transition-colors">
-                Read More
-                <ArrowRight className="w-3 h-3" />
-              </span>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 

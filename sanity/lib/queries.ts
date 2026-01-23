@@ -25,8 +25,11 @@ export const sectorsQuery = groq`*[_type == "sector"] | order(order asc) {
 export const insightsQuery = groq`*[_type == "insight"] | order(order asc) {
   _id,
   title,
+  slug,
+  coverImage,
   category,
   excerpt,
+  body,
   date,
   readTime,
   featured,
