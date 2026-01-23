@@ -33,8 +33,11 @@ function urlFor(source: any) {
 // ============================================================================
 
 export interface SiteSettings {
+  // Hero
   heroHeadline?: string;
   heroSubheadline?: string;
+  heroTagline?: string;
+  // Thesis
   thesisTitle?: string;
   thesisDescription?: string;
   stat1Value?: string;
@@ -43,15 +46,34 @@ export interface SiteSettings {
   stat2Label?: string;
   stat3Value?: string;
   stat3Label?: string;
+  stat4Value?: string;
+  stat4Label?: string;
+  statsSource?: string;
+  // Ecosystem
   ecosystemTitle?: string;
   ecosystemDescription?: string;
   rotatingWords?: string[];
+  // Opportunity Zone
   opportunityZoneTitle?: string;
+  opportunityZoneSubtitle?: string;
   opportunityZoneDescription?: string;
+  opportunityZoneBullets?: string[];
+  opportunityZoneStatValue?: string;
+  opportunityZoneStatLabel?: string;
+  opportunityZoneLearnMoreUrl?: string;
+  opportunityZoneLearnMoreText?: string;
+  // Contact
   contactEmail?: string;
   contactPhone?: string;
   contactAddress?: string;
   footerTagline?: string;
+  footerDisclaimer?: string;
+  // Styling
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundColor?: string;
+  headingFont?: string;
+  bodyFont?: string;
 }
 
 export interface TeamMember {
@@ -93,8 +115,11 @@ export interface Insight {
 // ============================================================================
 
 const DEFAULT_SETTINGS: SiteSettings = {
+  // Hero
   heroHeadline: "Powering the Energy Transition",
   heroSubheadline: "M2PV Capital invests in sustainable mobility and green data infrastructure across the American Southwest.",
+  heroTagline: "Private Equity · Energy Infrastructure",
+  // Thesis
   thesisTitle: "The infrastructure gap is the investment opportunity of the decade",
   thesisDescription: "The Southwest Sunbelt offers peak solar irradiance, critical logistics corridors, and surging demand for clean power. Our integrated approach connects renewable generation directly to high-growth demand: EV charging networks and hyperscale data centers.",
   stat1Value: "$1T+",
@@ -103,8 +128,27 @@ const DEFAULT_SETTINGS: SiteSettings = {
   stat2Label: "Days of Sun",
   stat3Value: "1+ GW",
   stat3Label: "Pipeline",
+  stat4Value: "8,764",
+  stat4Label: "Opportunity Zones",
+  statsSource: "Sources: U.S. Department of Energy, NREL, IRS",
+  // Ecosystem
   rotatingWords: ["Logistics Corridors", "Fleet Depots", "Data Centers", "Grid Edge", "Industrial Parks", "Distribution Hubs"],
+  // Opportunity Zone
+  opportunityZoneTitle: "Qualified Opportunity Zone Fund",
+  opportunityZoneSubtitle: "Tax-Advantaged Structure",
+  opportunityZoneDescription: "M2PV Capital operates as a Qualified Opportunity Zone Fund, enabling investors to defer and potentially reduce capital gains taxes while investing in transformative energy infrastructure.",
+  opportunityZoneBullets: [
+    "Capital gains tax deferral until 2026",
+    "10%+ basis step-up for 5-year holds",
+    "Tax-free appreciation on 10-year holds"
+  ],
+  opportunityZoneStatValue: "8,764",
+  opportunityZoneStatLabel: "Designated Opportunity Zones in Target States",
+  opportunityZoneLearnMoreUrl: "https://www.irs.gov/credits-deductions/businesses/opportunity-zones",
+  opportunityZoneLearnMoreText: "Learn More at IRS.gov",
+  // Contact
   contactEmail: "ir@m2pvcapital.com",
+  footerDisclaimer: "© 2026 M2PV Capital. This website does not constitute an offer to sell or a solicitation of an offer to buy any securities.",
 };
 
 const NAV_LINKS = [
@@ -285,6 +329,7 @@ function HeroSection({ settings }: { settings: SiteSettings }) {
 
   const headline = settings.heroHeadline || DEFAULT_SETTINGS.heroHeadline!;
   const subheadline = settings.heroSubheadline || DEFAULT_SETTINGS.heroSubheadline!;
+  const tagline = settings.heroTagline || DEFAULT_SETTINGS.heroTagline!;
 
   // Split headline by line break indicator
   const headlineParts = headline.split(" ");
@@ -311,7 +356,7 @@ function HeroSection({ settings }: { settings: SiteSettings }) {
             transition={{ duration: 1, delay: 0.3 }}
             className="text-stone-400 text-sm uppercase tracking-[0.3em] mb-6"
           >
-            Private Equity · Energy Infrastructure
+            {tagline}
           </motion.p>
 
           <motion.h1
@@ -410,8 +455,12 @@ function ThesisSection({ settings }: { settings: SiteSettings }) {
               </p>
             </div>
             <div className="border-l-2 border-stone-700 pl-6">
-              <p className="text-4xl lg:text-5xl text-white font-light tracking-tight mb-2">8,764</p>
-              <p className="text-stone-500 text-xs uppercase tracking-[0.15em]">Opportunity Zones</p>
+              <p className="text-4xl lg:text-5xl text-white font-light tracking-tight mb-2">
+                {settings.stat4Value || DEFAULT_SETTINGS.stat4Value}
+              </p>
+              <p className="text-stone-500 text-xs uppercase tracking-[0.15em]">
+                {settings.stat4Label || DEFAULT_SETTINGS.stat4Label}
+              </p>
             </div>
             <div className="border-l-2 border-stone-700 pl-6">
               <p className="text-4xl lg:text-5xl text-white font-light tracking-tight mb-2">
@@ -422,6 +471,11 @@ function ThesisSection({ settings }: { settings: SiteSettings }) {
               </p>
             </div>
           </div>
+          
+          {/* Stats Source */}
+          <p className="mt-8 text-stone-600 text-xs text-center">
+            {settings.statsSource || DEFAULT_SETTINGS.statsSource}
+          </p>
         </motion.div>
       </div>
     </section>
@@ -719,9 +773,13 @@ function RotatingTextSection({ settings }: { settings: SiteSettings }) {
 // OPPORTUNITY ZONE SECTION
 // ============================================================================
 
-function OpportunityZoneSection() {
+function OpportunityZoneSection({ settings }: { settings: SiteSettings }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const bullets = settings.opportunityZoneBullets || DEFAULT_SETTINGS.opportunityZoneBullets!;
+  const learnMoreUrl = settings.opportunityZoneLearnMoreUrl || DEFAULT_SETTINGS.opportunityZoneLearnMoreUrl!;
+  const learnMoreText = settings.opportunityZoneLearnMoreText || DEFAULT_SETTINGS.opportunityZoneLearnMoreText!;
 
   return (
     <section ref={ref} className="py-32 lg:py-48 bg-stone-950">
@@ -733,21 +791,34 @@ function OpportunityZoneSection() {
           className="grid lg:grid-cols-2 gap-16 items-center"
         >
           <div>
-            <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-6">Tax-Advantaged Structure</p>
+            <p className="text-stone-500 text-sm uppercase tracking-[0.3em] mb-6">
+              {settings.opportunityZoneSubtitle || DEFAULT_SETTINGS.opportunityZoneSubtitle}
+            </p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light leading-tight mb-8">
-              Qualified Opportunity Zone Fund
+              {settings.opportunityZoneTitle || DEFAULT_SETTINGS.opportunityZoneTitle}
             </h2>
             <p className="text-xl text-stone-400 leading-relaxed mb-8">
-              M2PV Capital operates as a Qualified Opportunity Zone Fund, enabling investors to defer and potentially reduce capital gains taxes while investing in transformative energy infrastructure.
+              {settings.opportunityZoneDescription || DEFAULT_SETTINGS.opportunityZoneDescription}
             </p>
-            <div className="space-y-4">
-              {["Capital gains tax deferral until 2026", "10%+ basis step-up for 5-year holds", "Tax-free appreciation on 10-year holds"].map((item) => (
+            <div className="space-y-4 mb-10">
+              {bullets.map((item) => (
                 <div key={item} className="flex items-center gap-4">
                   <div className="w-2 h-2 bg-white rounded-full" />
                   <p className="text-stone-300">{item}</p>
                 </div>
               ))}
             </div>
+            
+            {/* Learn More Button */}
+            <a
+              href={learnMoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-6 py-3 border border-stone-700 text-white hover:bg-white hover:text-stone-950 transition-all duration-300 group"
+            >
+              <span className="text-sm uppercase tracking-wider">{learnMoreText}</span>
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
           </div>
           <div className="relative">
             <div className="aspect-square bg-stone-900 rounded-lg overflow-hidden">
@@ -758,8 +829,12 @@ function OpportunityZoneSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent" />
               <div className="absolute bottom-8 left-8 right-8">
-                <p className="text-5xl text-white font-light mb-2">8,764</p>
-                <p className="text-stone-400">Designated Opportunity Zones in Target States</p>
+                <p className="text-5xl text-white font-light mb-2">
+                  {settings.opportunityZoneStatValue || DEFAULT_SETTINGS.opportunityZoneStatValue}
+                </p>
+                <p className="text-stone-400">
+                  {settings.opportunityZoneStatLabel || DEFAULT_SETTINGS.opportunityZoneStatLabel}
+                </p>
               </div>
             </div>
           </div>
@@ -1117,7 +1192,7 @@ function ContactSection({ settings }: { settings: SiteSettings }) {
 // FOOTER
 // ============================================================================
 
-function Footer() {
+function Footer({ settings }: { settings: SiteSettings }) {
   return (
     <footer className="py-12 bg-stone-950 border-t border-stone-900">
       <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
@@ -1130,7 +1205,7 @@ function Footer() {
           </div>
 
           <p className="text-stone-600 text-sm max-w-md">
-            © 2026 M2PV Capital. This website does not constitute an offer to sell or a solicitation of an offer to buy any securities.
+            {settings.footerDisclaimer || DEFAULT_SETTINGS.footerDisclaimer}
           </p>
         </div>
       </div>
@@ -1153,11 +1228,11 @@ export default function PageClient({ settings, team, sectors, insights }: PageCl
       <SectorsSection sectors={sectors} />
       <EcosystemSection />
       <RotatingTextSection settings={siteSettings} />
-      <OpportunityZoneSection />
+      <OpportunityZoneSection settings={siteSettings} />
       <TeamSection team={team} />
       <InsightsSection insights={insights} />
       <ContactSection settings={siteSettings} />
-      <Footer />
+      <Footer settings={siteSettings} />
     </main>
   );
 }
