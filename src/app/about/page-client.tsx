@@ -56,7 +56,7 @@ function FirmOverview({ settings }: { settings: SiteSettings }) {
               as="h2"
               className="text-[clamp(1.5rem,3vw,2.25rem)] font-serif text-primary leading-[1.25] tracking-[-0.01em]"
             >
-              M2PV Capital is a leading energy infrastructure investment firm focused on the American Southwest.
+              M2PV Capital is a energy infrastructure investment firm focused on the American Southwest.
             </TextReveal>
           </motion.div>
 

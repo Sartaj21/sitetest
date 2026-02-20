@@ -234,7 +234,7 @@ function HeroSection({ settings }: { settings: SiteSettings }) {
                 className="w-8 h-px bg-primary origin-left"
               />
               <span className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-primary/60">
-                Private Equity · Energy Infrastructure
+                Energy Infrastructure
               </span>
             </motion.div>
 
