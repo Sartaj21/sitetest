@@ -39,7 +39,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
       </head>
-      <body className="bg-stone-950 text-white antialiased">
+      <body className="bg-white text-[#1a1f36] antialiased">
         {children}
       </body>
     </html>
