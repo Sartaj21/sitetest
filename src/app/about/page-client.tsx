@@ -73,9 +73,16 @@ function FirmOverview({ settings }: { settings: SiteSettings }) {
               platforms that capture value at every stage of the electron&apos;s journey.
             </p>
             <p className="mt-5 text-[15px] sm:text-base text-gray-600 leading-[1.8]">
-              Our team brings decades of experience in infrastructure investing, energy project development,
-              and institutional asset management. We believe the Southwest Sunbelt represents the most
-              compelling opportunity set in North American energy infrastructure today.
+              What sets us apart: our principals are experienced system architects who co-develop every
+              investment we pursue. We don&apos;t just deploy capital — we design, engineer, and oversee project
+              execution, giving us direct control over quality, cost, and timeline that purely financial
+              sponsors cannot replicate.
+            </p>
+            <p className="mt-5 text-[15px] sm:text-base text-gray-600 leading-[1.8]">
+              Because our team combines deep engineering expertise with investment experience,
+              we evaluate every opportunity through a dual lens — technical feasibility and financial merit.
+              We believe the Southwest Sunbelt represents the most compelling opportunity set in North American
+              energy infrastructure today.
             </p>
             <LineReveal className="mt-8" />
             <motion.div
@@ -122,7 +129,7 @@ function InvestmentApproach() {
             as="h2"
             className="text-[clamp(1.5rem,3vw,2.5rem)] font-serif text-primary leading-[1.25] tracking-[-0.01em] max-w-2xl"
           >
-            An integrated platform that captures value across the full energy value chain.
+            An engineer-led platform that captures value across the full energy value chain.
           </TextReveal>
         </motion.div>
 

@@ -9,7 +9,7 @@ import {
   useSpring,
   AnimatePresence,
 } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Crosshair, Shield } from "lucide-react";
 import {
   SiteSettings, TeamMember, Sector, Insight,
   D, DEFAULT_SECTORS, DEFAULT_INSIGHTS, SECTOR_IMAGES, INSIGHT_IMAGES,
@@ -501,6 +501,82 @@ function StatsBanner({ settings }: { settings: SiteSettings }) {
 }
 
 // ============================================================================
+// OUR EDGE — Engineering-led investment differentiator
+// ============================================================================
+
+function EdgeSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const pillars = [
+    {
+      icon: <Crosshair className="w-5 h-5" />,
+      title: "Co-Developed Investments",
+      body: "As experienced system architects, we don't just fund projects — we co-develop them. From system design to commissioning, our hands-on involvement gives us direct control over quality, timeline, and execution risk.",
+    },
+    {
+      icon: <Shield className="w-5 h-5" />,
+      title: "Engineering-Grade Diligence",
+      body: "Because our principals are both engineers and investment professionals, we evaluate every opportunity through a dual lens — technical feasibility and financial merit — so we know exactly what constitutes a quality investment.",
+    },
+  ];
+
+  return (
+    <section className="py-16 sm:py-20 lg:py-28 bg-primary overflow-hidden">
+      <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* Left — headline */}
+          <motion.div
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={fadeUp}
+            className="lg:col-span-5"
+          >
+            <SectionLabel className="text-accent-300">Our Edge</SectionLabel>
+            <TextReveal
+              as="h2"
+              className="text-[clamp(1.5rem,3vw,2.5rem)] font-serif text-white leading-[1.3] tracking-[-0.01em]"
+            >
+              We don&apos;t just invest in infrastructure. We engineer it.
+            </TextReveal>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-5 text-[15px] text-white/50 leading-[1.75] max-w-md"
+            >
+              Our principals bring decades of system architecture and energy engineering expertise to every deal, creating a level of quality control that purely financial sponsors cannot replicate.
+            </motion.p>
+          </motion.div>
+
+          {/* Right — two pillars */}
+          <motion.div
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={staggerContainer}
+            className="lg:col-span-7 grid sm:grid-cols-2 gap-4 sm:gap-5"
+          >
+            {pillars.map((p) => (
+              <motion.div
+                key={p.title}
+                variants={staggerItem}
+                className="group bg-white/[0.04] border border-white/[0.08] hover:border-accent-400/30 rounded-sm p-6 sm:p-7 transition-all duration-500 hover:bg-white/[0.07]"
+              >
+                <div className="w-10 h-10 rounded bg-accent-400/10 flex items-center justify-center text-accent-400 mb-5 group-hover:scale-110 transition-transform duration-300">
+                  {p.icon}
+                </div>
+                <h3 className="text-lg font-serif text-white mb-3">{p.title}</h3>
+                <p className="text-[13px] sm:text-sm text-white/45 leading-[1.7]">{p.body}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
 // OVERVIEW CARDS — Teaser links to main pages
 // ============================================================================
 
@@ -734,6 +810,7 @@ export default function PageClient({ settings, team, sectors, insights }: PageCl
       <HeroSection settings={s} />
       <MissionSection />
       <StatsBanner settings={s} />
+      <EdgeSection />
       <SectorsPreview sectors={sectors} />
       <InsightsPreview insights={insights} />
       <ContactCTA settings={s} />

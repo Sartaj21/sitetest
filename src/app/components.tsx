@@ -667,11 +667,11 @@ export function CustomCursor() {
 // SECTION LABEL
 // ============================================================================
 
-export function SectionLabel({ children }: { children: string }) {
+export function SectionLabel({ children, className }: { children: string; className?: string }) {
   return (
     <div className="flex items-center gap-3 mb-6 sm:mb-8">
       <div className="w-8 h-px bg-accent-400" />
-      <span className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-accent-500">
+      <span className={`text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase ${className || "text-accent-500"}`}>
         {children}
       </span>
     </div>
