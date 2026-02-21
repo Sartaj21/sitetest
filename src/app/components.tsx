@@ -157,7 +157,7 @@ export const D: SiteSettings = {
   opportunityZoneLearnMoreUrl:
     "https://www.irs.gov/credits-deductions/businesses/opportunity-zones",
   opportunityZoneLearnMoreText: "Learn More at IRS.gov",
-  contactEmail: "ir@m2pvcapital.com",
+  contactEmail: "ceo@m2pvcapital.com",
   footerDisclaimer:
     "© 2026 M2PV Capital. This website does not constitute an offer to sell or a solicitation of an offer to buy any securities.",
 };
@@ -204,11 +204,11 @@ export const DEFAULT_SECTORS: Sector[] = [
     name: "Renewables",
     shortDescription: "Grid-Scale Solar & Storage",
     fullDescription:
-      "Utility-scale PV and battery storage systems stabilizing the Western Interconnection with 25-year contracted cash flows.",
+      "Utility-scale PV and battery storage systems stabilizing the Western Interconnection with contracted cash flows.",
     icon: "Sun",
     stats: [
       { value: "1+ GW", label: "Pipeline" },
-      { value: "25-Year", label: "PPAs" },
+      { value: "Contracted", label: "PPAs" },
     ],
   },
 ];
@@ -956,7 +956,7 @@ export function Navbar() {
             </nav>
 
             <div className="px-8 sm:px-12 py-5 border-t border-gray-100">
-              <p className="text-xs text-gray-400">ir@m2pvcapital.com</p>
+              <p className="text-xs text-gray-400">ceo@m2pvcapital.com</p>
             </div>
           </motion.div>
         )}

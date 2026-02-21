@@ -74,18 +74,7 @@ function ContactContent({ email, settings }: { email: string; settings: SiteSett
                   {email}
                 </a>
               </motion.div>
-              {settings.contactPhone && (
-                <motion.div variants={staggerItem}>
-                  <h4 className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.15em] mb-2">Phone</h4>
-                  <p className="text-lg text-primary font-medium">{settings.contactPhone}</p>
-                </motion.div>
-              )}
-              {settings.contactAddress && (
-                <motion.div variants={staggerItem}>
-                  <h4 className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.15em] mb-2">Office</h4>
-                  <p className="text-base text-gray-600 leading-relaxed">{settings.contactAddress}</p>
-                </motion.div>
-              )}
+
             </motion.div>
 
             <motion.div
