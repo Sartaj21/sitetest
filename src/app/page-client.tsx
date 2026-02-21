@@ -6,6 +6,7 @@ import {
   useInView,
   useScroll,
   useTransform,
+  useSpring,
   AnimatePresence,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -508,8 +509,19 @@ function SectorsPreview({ sectors }: { sectors: Sector[] }) {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const sectorList = sectors.length > 0 ? sectors : DEFAULT_SECTORS;
 
+  // Circle-expand scroll reveal
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "center center"],
+  });
+  const rawRadius = useTransform(scrollYProgress, [0, 0.6, 1], [0, 80, 120]);
+  const clipRadius = useSpring(rawRadius, { stiffness: 50, damping: 25, mass: 0.8 });
+  const clipPath = useTransform(clipRadius, (v: number) => `circle(${v}% at 50% 50%)`);
+
   return (
-    <RevealSection className="py-16 sm:py-20 lg:py-28 bg-[#f0f2f8]">
+    <section ref={sectionRef} className="relative bg-white">
+    <motion.div style={{ clipPath }} className="py-16 sm:py-20 lg:py-28 bg-[#f0f2f8]">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
 
         {/* Sectors Preview */}
@@ -569,7 +581,8 @@ function SectorsPreview({ sectors }: { sectors: Sector[] }) {
           ))}
         </motion.div>
       </div>
-    </RevealSection>
+    </motion.div>
+    </section>
   );
 }
 
