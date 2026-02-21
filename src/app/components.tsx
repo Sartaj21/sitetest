@@ -148,7 +148,7 @@ export const D: SiteSettings = {
   opportunityZoneDescription:
     "M2PV Capital operates as a Qualified Opportunity Zone Fund, enabling investors to defer and potentially reduce capital gains taxes while investing in transformative energy infrastructure.",
   opportunityZoneBullets: [
-    "Capital gains tax deferral until 2026",
+    "Defer capital gains taxes by reinvesting into a Qualified Opportunity Fund",
     "10%+ basis step-up for 5-year holds",
     "Tax-free appreciation on 10-year holds",
   ],
