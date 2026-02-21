@@ -73,7 +73,7 @@ function FirmOverview({ settings }: { settings: SiteSettings }) {
               platforms that capture value at every stage of the electron&apos;s journey.
             </p>
             <p className="mt-5 text-[15px] sm:text-base text-gray-600 leading-[1.8]">
-              What sets us apart: our principals are experienced system architects who co-develop every
+              What sets us apart: our principals are experienced system engineers who co-develop every
               investment we pursue. We don&apos;t just deploy capital — we design, engineer, and oversee project
               execution, giving us direct control over quality, cost, and timeline that purely financial
               sponsors cannot replicate.
