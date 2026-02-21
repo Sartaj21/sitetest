@@ -709,9 +709,10 @@ export function Navbar() {
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
+    fn(); // check immediately on mount / route change
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -760,7 +761,7 @@ export function Navbar() {
                 <span className="text-white text-[11px] sm:text-xs font-bold tracking-tight">M2</span>
               </div>
               <div className="hidden xs:block leading-none">
-                <span className={`text-sm sm:text-[15px] font-semibold tracking-tight ${logoTextColor}`}>
+                <span className={`text-sm sm:text-[15px] font-semibold tracking-tight transition-colors duration-500 ${logoTextColor}`}>
                   M2PV Capital
                 </span>
               </div>
@@ -853,7 +854,7 @@ export function Navbar() {
             {/* Mobile Toggle */}
             <button
               onClick={() => setOpen(!open)}
-              className={`lg:hidden p-1.5 -mr-1.5 rounded transition-colors ${toggleColor}`}
+              className={`lg:hidden p-1.5 -mr-1.5 rounded transition-colors duration-500 ${toggleColor}`}
               aria-label="Menu"
             >
               {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
