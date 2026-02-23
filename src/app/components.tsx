@@ -171,6 +171,7 @@ export const NAV_LINKS = [
       { label: "Sectors", href: "/sectors" },
     ],
   },
+  { label: "Team", href: "/team" },
   { label: "Insights", href: "/insights" },
 ];
 
@@ -697,7 +698,7 @@ export function SectorIcon({ name, className }: { name?: string; className?: str
 // ============================================================================
 
 // Pages with dark hero banners — navbar text should be light when not scrolled
-const DARK_HERO_PAGES = ["/about", "/sectors", "/insights", "/contact"];
+const DARK_HERO_PAGES = ["/about", "/sectors", "/insights", "/contact", "/team"];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -726,8 +727,8 @@ export function Navbar() {
       ? "text-white/70 hover:text-white hover:bg-white/10"
       : "text-primary/60 hover:text-primary hover:bg-primary/5";
 
-  const logoTextColor = scrolled ? "text-primary" : isDarkHero ? "text-white" : "text-primary";
-  const toggleColor = scrolled ? "text-primary" : isDarkHero ? "text-white" : "text-primary";
+  const logoTextColor = scrolled ? "text-primary" : isDarkHero ? "text-primary lg:text-white" : "text-primary";
+  const toggleColor = scrolled ? "text-primary" : isDarkHero ? "text-primary lg:text-white" : "text-primary";
 
   const openDropdown = (label: string) => {
     if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
@@ -748,7 +749,7 @@ export function Navbar() {
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
-            : "bg-transparent"
+            : "bg-white/95 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none"
         }`}
       >
         <div className="mx-auto max-w-screen-2xl px-5 sm:px-8 lg:px-12 xl:px-16">
@@ -756,7 +757,7 @@ export function Navbar() {
             {/* Logo */}
             <a href="/" className="flex items-center gap-2.5 shrink-0">
               <div className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded flex items-center justify-center ${
-                scrolled ? "bg-primary" : isDarkHero ? "bg-white/15 border border-white/20" : "bg-primary"
+                scrolled ? "bg-primary" : isDarkHero ? "bg-primary lg:bg-white/15 lg:border lg:border-white/20" : "bg-primary"
               }`}>
                 <span className="text-white text-[11px] sm:text-xs font-bold tracking-tight">M2</span>
               </div>
@@ -994,7 +995,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
             <ul className="space-y-2.5">
               <li><a href="/about" className="text-sm text-white/50 hover:text-white transition-colors">About</a></li>
               <li><a href="/sectors" className="text-sm text-white/50 hover:text-white transition-colors">Sectors</a></li>
-
+              <li><a href="/team" className="text-sm text-white/50 hover:text-white transition-colors">Team</a></li>
               <li><a href="/insights" className="text-sm text-white/50 hover:text-white transition-colors">Insights</a></li>
               <li><a href="/contact" className="text-sm text-white/50 hover:text-white transition-colors">Contact</a></li>
             </ul>

@@ -508,19 +508,6 @@ function EdgeSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const pillars = [
-    {
-      icon: <Crosshair className="w-5 h-5" />,
-      title: "Co-Developed Investments",
-      body: "As experienced system architects, we don't just fund projects — we co-develop them. From system design to commissioning, our hands-on involvement gives us direct control over quality, timeline, and execution risk.",
-    },
-    {
-      icon: <Shield className="w-5 h-5" />,
-      title: "Engineering-Grade Diligence",
-      body: "Because our principals are both engineers and investment professionals, we evaluate every opportunity through a dual lens — technical feasibility and financial merit — so we know exactly what constitutes a quality investment.",
-    },
-  ];
-
   return (
     <section className="py-16 sm:py-20 lg:py-28 bg-primary overflow-hidden">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
@@ -556,19 +543,20 @@ function EdgeSection() {
             variants={staggerContainer}
             className="lg:col-span-7 grid sm:grid-cols-2 gap-4 sm:gap-5"
           >
-            {pillars.map((p) => (
-              <motion.div
-                key={p.title}
-                variants={staggerItem}
-                className="group bg-white/[0.04] border border-white/[0.08] hover:border-accent-400/30 rounded-sm p-6 sm:p-7 transition-all duration-500 hover:bg-white/[0.07]"
-              >
-                <div className="w-10 h-10 rounded bg-accent-400/10 flex items-center justify-center text-accent-400 mb-5 group-hover:scale-110 transition-transform duration-300">
-                  {p.icon}
-                </div>
-                <h3 className="text-lg font-serif text-white mb-3">{p.title}</h3>
-                <p className="text-[13px] sm:text-sm text-white/45 leading-[1.7]">{p.body}</p>
-              </motion.div>
-            ))}
+            <motion.div variants={staggerItem} className="group bg-white/[0.04] border border-white/[0.08] hover:border-accent-400/30 rounded-sm p-6 sm:p-7 transition-all duration-500 hover:bg-white/[0.07]">
+              <div className="w-10 h-10 rounded bg-accent-400/10 flex items-center justify-center text-accent-400 mb-5 group-hover:scale-110 transition-transform duration-300">
+                <Crosshair className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-serif text-white mb-3">Co-Developed Investments</h3>
+              <p className="text-[13px] sm:text-sm text-white/45 leading-[1.7]">As experienced system architects, we don&apos;t just fund projects — we co-develop them. From system design to commissioning, our hands-on involvement gives us direct control over quality, timeline, and execution risk.</p>
+            </motion.div>
+            <motion.div variants={staggerItem} className="group bg-white/[0.04] border border-white/[0.08] hover:border-accent-400/30 rounded-sm p-6 sm:p-7 transition-all duration-500 hover:bg-white/[0.07]">
+              <div className="w-10 h-10 rounded bg-accent-400/10 flex items-center justify-center text-accent-400 mb-5 group-hover:scale-110 transition-transform duration-300">
+                <Shield className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-serif text-white mb-3">Engineering-Grade Diligence</h3>
+              <p className="text-[13px] sm:text-sm text-white/45 leading-[1.7]">Because our principals are both engineers and investment professionals, we evaluate every opportunity through a dual lens — technical feasibility and financial merit — so we know exactly what constitutes a quality investment.</p>
+            </motion.div>
           </motion.div>
         </div>
       </div>
