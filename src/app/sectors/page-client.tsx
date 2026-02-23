@@ -143,12 +143,12 @@ function ThesisBanner({ settings }: { settings: SiteSettings }) {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <RevealSection className="py-14 sm:py-16 lg:py-20 bg-primary">
+    <RevealSection className="py-14 sm:py-16 lg:py-20 bg-[#f0f2f8]">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="max-w-3xl">
           <TextReveal
             as="h2"
-            className="text-[clamp(1.5rem,3.5vw,2.75rem)] font-serif text-white leading-[1.2]"
+            className="text-[clamp(1.5rem,3.5vw,2.75rem)] font-serif text-primary leading-[1.2]"
           >
             {settings.thesisTitle || D.thesisTitle || "The infrastructure gap is the investment opportunity of the decade"}
           </TextReveal>
@@ -156,7 +156,7 @@ function ThesisBanner({ settings }: { settings: SiteSettings }) {
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-5 text-base text-white/60 leading-relaxed max-w-xl"
+            className="mt-5 text-base text-gray-500 leading-relaxed max-w-xl"
           >
             {settings.thesisDescription || D.thesisDescription}
           </motion.p>
@@ -167,7 +167,7 @@ function ThesisBanner({ settings }: { settings: SiteSettings }) {
           >
             <MagneticButton
               href="/contact"
-              className="mt-8 inline-flex items-center gap-2 px-7 py-3.5 bg-white text-primary hover:bg-white/90 text-sm font-semibold tracking-wide transition-colors rounded-sm"
+              className="mt-8 inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-white hover:bg-primary-light text-sm font-semibold tracking-wide transition-colors rounded-sm"
             >
               Investor Relations
             </MagneticButton>
