@@ -82,7 +82,7 @@ export default function TeamPageClient({ settings }: TeamPageClientProps) {
       <PageHero
         label="Leadership"
         title="Our Team"
-        subtitle="Experienced professionals with deep domain expertise across energy infrastructure, renewable development, and investing."
+        subtitle="Experienced professionals across energy infrastructure, renewable development, and investing."
       />
       <LeadershipSection />
       <OperatingTeamSection />
@@ -114,7 +114,7 @@ function LeadershipSection() {
             as="p"
             className="text-[15px] sm:text-base text-gray-500 max-w-lg leading-relaxed"
           >
-            Our leadership team combines decades of experience in infrastructure investing, energy project development, and system engineering.
+            Our leadership team combines experience in infrastructure investing, energy project development, and system engineering.
           </TextReveal>
         </motion.div>
 
