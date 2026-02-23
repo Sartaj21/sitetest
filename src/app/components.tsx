@@ -83,8 +83,10 @@ export interface TeamMember {
   _id: string;
   name: string;
   title: string;
+  role?: 'leadership' | 'operating';
   bio?: string;
   image?: any;
+  imagePosition?: string;
   linkedIn?: string;
   order?: number;
 }
@@ -94,6 +96,7 @@ export interface Sector {
   name: string;
   shortDescription?: string;
   fullDescription?: string;
+  coverImage?: any;
   icon?: string;
   stats?: { value: string; label: string }[];
   order?: number;
@@ -111,6 +114,18 @@ export interface Insight {
   readTime?: string;
   featured?: boolean;
   order?: number;
+}
+
+/** Format a date string (ISO or display) into a readable format like "January 23, 2026" */
+export function formatInsightDate(date?: string): string {
+  if (!date) return "";
+  // If it's an ISO date (YYYY-MM-DD) from Sanity date type
+  if (/^\d{4}-\d{2}-\d{2}/.test(date)) {
+    const d = new Date(date + "T12:00:00");
+    return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  }
+  // Already a display string (from old data)
+  return date;
 }
 
 // ============================================================================
@@ -958,7 +973,7 @@ export function Navbar() {
             </nav>
 
             <div className="px-8 sm:px-12 py-5 border-t border-gray-100">
-              <p className="text-xs text-gray-400">ceo@m2pvcapital.com</p>
+              <p className="text-xs text-gray-400">{D.contactEmail}</p>
             </div>
           </motion.div>
         )}
@@ -986,7 +1001,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               <span className="text-[15px] font-semibold text-white tracking-tight">M2PV Capital</span>
             </div>
             <p className="text-sm text-white/40 leading-relaxed max-w-xs">
-              Energy infrastructure private equity focused on the American Southwest.
+              {settings.footerTagline || D.footerTagline || "Energy infrastructure private equity focused on the American Southwest."}
             </p>
           </div>
 
@@ -1017,6 +1032,16 @@ export function Footer({ settings }: { settings: SiteSettings }) {
             <a href={`mailto:${email}`} className="text-sm text-white/50 hover:text-white transition-colors block mb-2">
               {email}
             </a>
+            {(settings.contactPhone || D.contactPhone) && (
+              <a href={`tel:${(settings.contactPhone || D.contactPhone)!.replace(/\s/g, '')}`} className="text-sm text-white/50 hover:text-white transition-colors block mb-2">
+                {settings.contactPhone || D.contactPhone}
+              </a>
+            )}
+            {(settings.contactAddress || D.contactAddress) && (
+              <p className="text-sm text-white/40 mt-3 leading-relaxed max-w-[200px]">
+                {settings.contactAddress || D.contactAddress}
+              </p>
+            )}
           </div>
         </div>
       </div>

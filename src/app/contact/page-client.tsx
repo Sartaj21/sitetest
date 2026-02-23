@@ -16,6 +16,8 @@ interface ContactPageClientProps {
 export default function ContactPageClient({ settings }: ContactPageClientProps) {
   const s = settings || D;
   const email = s.contactEmail || D.contactEmail!;
+  const phone = s.contactPhone || D.contactPhone;
+  const address = s.contactAddress || D.contactAddress;
 
   return (
     <div className="min-h-screen bg-white antialiased overflow-x-hidden">
@@ -25,7 +27,7 @@ export default function ContactPageClient({ settings }: ContactPageClientProps) 
         title="Let's build the future of energy together."
         subtitle="We welcome inquiries from institutional investors, family offices, and strategic partners."
       />
-      <ContactContent email={email} settings={s} />
+      <ContactContent email={email} phone={phone} address={address} settings={s} />
       <Footer settings={s} />
     </div>
   );
@@ -35,7 +37,7 @@ export default function ContactPageClient({ settings }: ContactPageClientProps) 
 // CONTACT CONTENT
 // ============================================================================
 
-function ContactContent({ email, settings }: { email: string; settings: SiteSettings }) {
+function ContactContent({ email, phone, address, settings }: { email: string; phone?: string; address?: string; settings: SiteSettings }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -75,6 +77,21 @@ function ContactContent({ email, settings }: { email: string; settings: SiteSett
                 </a>
               </motion.div>
 
+              {phone && (
+                <motion.div variants={staggerItem}>
+                  <h4 className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.15em] mb-2">Phone</h4>
+                  <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-lg text-primary hover:text-accent-500 transition-colors duration-300 font-medium">
+                    {phone}
+                  </a>
+                </motion.div>
+              )}
+
+              {address && (
+                <motion.div variants={staggerItem}>
+                  <h4 className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.15em] mb-2">Office</h4>
+                  <p className="text-base text-gray-600">{address}</p>
+                </motion.div>
+              )}
             </motion.div>
 
             <motion.div

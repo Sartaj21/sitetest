@@ -16,6 +16,7 @@ import {
   fadeUp, staggerContainer, staggerItem,
   Navbar, Footer, SectionLabel, SectorIcon, urlFor,
   TextReveal, CountUp, ParallaxImage, RevealSection, MagneticButton, LineReveal,
+  formatInsightDate,
 } from "./components";
 
 // ============================================================================
@@ -623,7 +624,7 @@ function SectorsPreview({ sectors }: { sectors: Sector[] }) {
             >
               <div className="aspect-[16/10] overflow-hidden bg-surface">
                 <ParallaxImage
-                  src={SECTOR_IMAGES[i % SECTOR_IMAGES.length]}
+                  src={sector.coverImage ? (urlFor(sector.coverImage)?.width(600).height(375).url() || SECTOR_IMAGES[i % SECTOR_IMAGES.length]) : SECTOR_IMAGES[i % SECTOR_IMAGES.length]}
                   alt={sector.name}
                   className="aspect-[16/10]"
                   speed={0.08}
@@ -714,7 +715,7 @@ function InsightsPreview({ insights }: { insights: Insight[] }) {
                 <div className="p-5 sm:p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-[10px] font-semibold text-accent-500 tracking-[0.15em] uppercase">{item.category}</span>
-                    <span className="text-[11px] text-gray-300">{item.date}</span>
+                    <span className="text-[11px] text-gray-300">{formatInsightDate(item.date)}</span>
                   </div>
                   <h3 className="text-base sm:text-lg font-serif text-primary group-hover:text-accent-600 transition-colors duration-300 leading-snug">
                     {item.title}

@@ -5,7 +5,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   SiteSettings, Sector, D, DEFAULT_SECTORS, SECTOR_IMAGES,
   fadeUp, fadeLeft, fadeRight, staggerContainer, staggerItem,
-  Navbar, Footer, PageHero, SectionLabel, SectorIcon,
+  Navbar, Footer, PageHero, SectionLabel, SectorIcon, urlFor,
   TextReveal, ParallaxImage, RevealSection, MagneticButton, CountUp,
 } from "../components";
 
@@ -71,7 +71,7 @@ function SectorCard({ sector, index, reversed }: { sector: Sector; index: number
         className={`${reversed ? "lg:order-2" : ""}`}
       >
         <ParallaxImage
-          src={SECTOR_IMAGES[index % SECTOR_IMAGES.length]}
+          src={sector.coverImage ? (urlFor(sector.coverImage)?.width(800).height(500).url() || SECTOR_IMAGES[index % SECTOR_IMAGES.length]) : SECTOR_IMAGES[index % SECTOR_IMAGES.length]}
           alt={sector.name}
           className="aspect-[16/10] rounded-sm"
           speed={0.1}

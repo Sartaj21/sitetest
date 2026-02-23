@@ -6,8 +6,10 @@ export const teamMembersQuery = groq`*[_type == "teamMember"] | order(order asc)
   _id,
   name,
   title,
+  role,
   bio,
   image,
+  imagePosition,
   linkedIn,
   order
 }`
@@ -17,6 +19,7 @@ export const sectorsQuery = groq`*[_type == "sector"] | order(order asc) {
   name,
   shortDescription,
   fullDescription,
+  coverImage,
   icon,
   stats,
   order

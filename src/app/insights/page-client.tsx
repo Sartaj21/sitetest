@@ -5,7 +5,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   SiteSettings, Insight, D, DEFAULT_INSIGHTS, INSIGHT_IMAGES,
   fadeUp, staggerContainer, staggerItem,
-  Navbar, Footer, PageHero, urlFor,
+  Navbar, Footer, PageHero, urlFor, formatInsightDate,
 } from "../components";
 
 interface InsightsPageClientProps {
@@ -94,7 +94,7 @@ function InsightsList({ insights }: { insights: Insight[] }) {
                   <div className="p-5 sm:p-6">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-[10px] font-semibold text-accent-500 tracking-[0.15em] uppercase">{item.category}</span>
-                      <span className="text-[11px] text-gray-300">{item.date}</span>
+                      <span className="text-[11px] text-gray-300">{formatInsightDate(item.date)}</span>
                     </div>
                     <h3 className="text-base sm:text-lg font-serif text-primary group-hover:text-accent-600 transition-colors duration-300 leading-snug">
                       {item.title}
@@ -140,7 +140,7 @@ function InsightsList({ insights }: { insights: Insight[] }) {
               <div className="p-6 sm:p-8 lg:p-10">
                 <div className="flex flex-wrap items-center gap-3 mb-5">
                   <span className="text-[10px] font-semibold text-accent-500 tracking-[0.15em] uppercase">{selected.category}</span>
-                  <span className="text-[11px] text-gray-300">{selected.date}</span>
+                  <span className="text-[11px] text-gray-300">{formatInsightDate(selected.date)}</span>
                   {selected.readTime && <span className="text-[11px] text-gray-300">{selected.readTime}</span>}
                 </div>
                 <h2 className="text-xl sm:text-2xl lg:text-3xl font-serif text-primary leading-snug">{selected.title}</h2>

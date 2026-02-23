@@ -18,6 +18,20 @@ export const teamMember = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'role',
+      title: 'Role Category',
+      type: 'string',
+      description: 'Determines which section this person appears in',
+      options: {
+        list: [
+          { title: 'Leadership', value: 'leadership' },
+          { title: 'Operating Team', value: 'operating' },
+        ],
+      },
+      initialValue: 'operating',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'bio',
       title: 'Bio',
       type: 'text',
@@ -30,6 +44,12 @@ export const teamMember = defineType({
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'imagePosition',
+      title: 'Image Focal Point',
+      type: 'string',
+      description: 'CSS object-position value for cropping (e.g., "center", "top", "95% 15%"). Leave blank for center.',
     }),
     defineField({
       name: 'linkedIn',

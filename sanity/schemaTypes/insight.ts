@@ -107,8 +107,11 @@ export const insight = defineType({
     defineField({
       name: 'date',
       title: 'Date',
-      type: 'string',
-      description: 'Display date (e.g., "Q4 2024")',
+      type: 'date',
+      description: 'Publication date',
+      options: {
+        dateFormat: 'MMMM D, YYYY',
+      },
     }),
     defineField({
       name: 'readTime',

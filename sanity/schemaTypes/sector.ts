@@ -25,6 +25,15 @@ export const sector = defineType({
       description: 'Detailed description shown in modal',
     }),
     defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      description: 'Image shown on the sector card',
+    }),
+    defineField({
       name: 'icon',
       title: 'Icon Name',
       type: 'string',
