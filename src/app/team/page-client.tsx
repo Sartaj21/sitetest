@@ -137,7 +137,7 @@ function LeadershipSection() {
                   src={person.image}
                   alt={person.name}
                   loading={i === 0 ? "eager" : "lazy"}
-                  className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-[1.03]"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
               </div>
 
@@ -212,7 +212,7 @@ function OperatingTeamSection() {
                   src={person.image}
                   alt={person.name}
                   loading="lazy"
-                  className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-[1.05]"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                 />
               </div>
 
