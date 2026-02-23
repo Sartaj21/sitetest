@@ -26,7 +26,7 @@ const LEADERSHIP: TeamPerson[] = [
   {
     name: "Ralph Mesmer",
     title: "Founder & CEO",
-    image: "/team/ralph.png",
+    image: "/m2.jpeg",
     bio: "Ralph founded M2PV Capital to bridge the gap between engineering excellence and energy infrastructure investment. With deep roots in system engineering and project development across the American Southwest, he leads the firm\u2019s investment strategy and oversees all portfolio operations.",
   },
   {
@@ -137,7 +137,9 @@ function LeadershipSection() {
                   src={person.image}
                   alt={person.name}
                   loading={i === 0 ? "eager" : "lazy"}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${
+                    i === 0 ? "object-[95%_15%]" : "object-center"
+                  }`}
                 />
               </div>
 
