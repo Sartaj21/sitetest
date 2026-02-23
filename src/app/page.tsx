@@ -4,6 +4,14 @@ import PageClient from './page-client'
 
 export const revalidate = 60 // Revalidate every 60 seconds
 
+export const metadata = {
+  title: 'Energy Infrastructure Private Equity',
+  description: 'M2PV Capital deploys growth capital into energy infrastructure across the American Southwest — spanning mobility, digital infrastructure, and renewables.',
+  alternates: {
+    canonical: '/',
+  },
+}
+
 async function getData() {
   try {
     const [settings, team, sectors, insights] = await Promise.all([

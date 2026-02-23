@@ -7,6 +7,9 @@ export const revalidate = 60
 export const metadata = {
   title: 'Insights | M2PV Capital',
   description: 'Latest perspectives on energy infrastructure, renewable energy, and sustainable investment.',
+  alternates: {
+    canonical: '/insights',
+  },
 }
 
 async function getData() {

@@ -7,6 +7,9 @@ export const revalidate = 60
 export const metadata = {
   title: 'Team | M2PV Capital',
   description: 'Meet the experienced professionals behind M2PV Capital — leaders in energy infrastructure and private equity.',
+  alternates: {
+    canonical: '/team',
+  },
 }
 
 async function getData() {

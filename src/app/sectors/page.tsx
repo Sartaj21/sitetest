@@ -7,6 +7,9 @@ export const revalidate = 60
 export const metadata = {
   title: 'Sectors | M2PV Capital',
   description: 'Explore our investment focus areas: Mobility, Digital Infrastructure, and Renewables.',
+  alternates: {
+    canonical: '/sectors',
+  },
 }
 
 async function getData() {

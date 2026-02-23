@@ -7,6 +7,9 @@ export const revalidate = 60
 export const metadata = {
   title: 'Contact | M2PV Capital',
   description: 'Get in touch with M2PV Capital for investor relations and partnership inquiries.',
+  alternates: {
+    canonical: '/contact',
+  },
 }
 
 async function getData() {
