@@ -82,7 +82,7 @@ export default function TeamPageClient({ settings }: TeamPageClientProps) {
       <PageHero
         label="Leadership"
         title="Our Team"
-        subtitle="Experienced professionals with deep domain expertise across energy infrastructure, renewable development, and private equity."
+        subtitle="Experienced professionals with deep domain expertise across energy infrastructure, renewable development, and investing."
       />
       <LeadershipSection />
       <OperatingTeamSection />
