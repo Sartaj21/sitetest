@@ -92,7 +92,7 @@ export default function RootLayout({
               founders: [
                 {
                   "@type": "Person",
-                  name: "Ralph Mesmer",
+                  name: "R. M. Mesmer",
                   jobTitle: "Founder & CEO",
                 },
               ],

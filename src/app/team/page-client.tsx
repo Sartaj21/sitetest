@@ -17,12 +17,12 @@ import {
 const FALLBACK_LEADERSHIP: TeamMember[] = [
   {
     _id: "f-ralph",
-    name: "Ralph Mesmer",
+    name: "R. M. Mesmer",
     title: "Founder & CEO",
     role: "leadership",
     image: null,
     imagePosition: "95% 15%",
-    bio: "Ralph founded M2PV Capital to bridge the gap between engineering excellence and energy infrastructure investment.",
+    bio: "R. M. Mesmer founded M2PV Capital to bridge the gap between engineering excellence and energy infrastructure investment.",
   },
   {
     _id: "f-sarah",
@@ -68,7 +68,7 @@ const FALLBACK_OPERATING: TeamMember[] = [
 
 // Local image fallbacks (used when member has no Sanity image)
 const LOCAL_IMAGES: Record<string, string> = {
-  "Ralph Mesmer": "/m2.jpeg",
+  "R. M. Mesmer": "/m2.jpeg",
   "Sarah Scott": "/team/sarah.jpg",
   "Gabriel Araish": "/team/gabriel.png",
   "Craig Sutton": "/team/craig.jpg",
