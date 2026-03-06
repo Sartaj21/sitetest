@@ -17,7 +17,7 @@ import {
 const FALLBACK_LEADERSHIP: TeamMember[] = [
   {
     _id: "f-ralph",
-    name: "R. M. Mesmer ("M2")",
+    name: "R. M. Mesmer (\"M2\")",
     title: "Founder & CEO",
     role: "leadership",
     image: null,
