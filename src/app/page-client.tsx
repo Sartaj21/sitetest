@@ -608,13 +608,15 @@ function EdgeSection() {
               <div className="w-10 h-10 rounded bg-accent-400/10 flex items-center justify-center text-accent-400 mb-5 group-hover:scale-110 transition-transform duration-300">
                 <Crosshair className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-serif text-white">Co-Developed Investments</h3>
+              <h3 className="text-lg font-serif text-white mb-3">Co-Developed Investments</h3>
+              <p className="text-[13px] sm:text-sm text-white/45 leading-[1.7]">As experienced system architects, we don&apos;t just fund projects — we co-develop them. From system design to commissioning, our hands-on involvement gives us direct control over quality, timeline, and execution risk.</p>
             </motion.div>
             <motion.div variants={staggerItem} className="group bg-white/[0.04] border border-white/[0.08] hover:border-accent-400/30 rounded-sm p-6 sm:p-7 transition-all duration-500 hover:bg-white/[0.07]">
               <div className="w-10 h-10 rounded bg-accent-400/10 flex items-center justify-center text-accent-400 mb-5 group-hover:scale-110 transition-transform duration-300">
                 <Shield className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-serif text-white">Engineering-Grade Diligence</h3>
+              <h3 className="text-lg font-serif text-white mb-3">Engineering-Grade Diligence</h3>
+              <p className="text-[13px] sm:text-sm text-white/45 leading-[1.7]">Because our principals are both engineers and investment professionals, we evaluate every opportunity through a dual lens — technical feasibility and financial merit — so we know exactly what constitutes a quality investment.</p>
             </motion.div>
           </motion.div>
         </div>
