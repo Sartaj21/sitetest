@@ -59,14 +59,6 @@ export interface SiteSettings {
   ecosystemTitle?: string;
   ecosystemDescription?: string;
   rotatingWords?: string[];
-  opportunityZoneTitle?: string;
-  opportunityZoneSubtitle?: string;
-  opportunityZoneDescription?: string;
-  opportunityZoneBullets?: string[];
-  opportunityZoneStatValue?: string;
-  opportunityZoneStatLabel?: string;
-  opportunityZoneLearnMoreUrl?: string;
-  opportunityZoneLearnMoreText?: string;
   contactEmail?: string;
   contactPhone?: string;
   contactAddress?: string;
@@ -133,46 +125,33 @@ export function formatInsightDate(date?: string): string {
 // ============================================================================
 
 export const D: SiteSettings = {
-  heroHeadline: "Powering the Energy Transition",
+  heroHeadline: "Powering AI With Clean Energy",
   heroSubheadline:
-    "M2PV Capital invests in sustainable mobility and green data infrastructure across the American Southwest.",
-  heroTagline: "Energy Infrastructure",
+    "M2PV Capital deploys solar PV and nuclear SMR generation in rural areas to power the next generation of AI infrastructure.",
+  heroTagline: "AI Energy Infrastructure",
   thesisTitle:
-    "The infrastructure gap is the investment opportunity of the decade",
+    "Rural areas are the deployment frontier for AI-grade power",
   thesisDescription:
-    "The Southwest Sunbelt offers peak solar irradiance, critical logistics corridors, and surging demand for clean power. Our integrated approach connects renewable generation directly to high-growth demand: EV charging networks and hyperscale data centers.",
+    "AI compute demand is outpacing the grid. We co-develop utility-scale solar PV plants and small modular nuclear reactors in rural areas — bringing dispatchable, low-carbon baseload directly to the data centers that need it most.",
   stat1Value: "$1T+",
-  stat1Label: "U.S. Energy Infrastructure Gap",
-  stat2Value: "300+",
-  stat2Label: "Days of Sun in the Southwest",
-  stat3Value: "1+ GW",
-  stat3Label: "Solar Capacity Needed by 2030",
+  stat1Label: "AI Power Infrastructure Gap",
+  stat2Value: "100+ GW",
+  stat2Label: "AI Data Center Demand by 2030",
+  stat3Value: "Baseload",
+  stat3Label: "SMR + Solar PV Deployment",
   stat4Value: "8,764",
-  stat4Label: "Federally Designated OZ Tracts",
-  statsSource: "Sources: ASCE Infrastructure Report, NREL Solar Resource Data, EIA, U.S. Treasury",
+  stat4Label: "Rural Tracts in Target States",
+  statsSource: "Sources: DOE, NREL, EIA, U.S. Treasury, McKinsey Energy Insights",
   rotatingWords: [
-    "Logistics Corridors",
-    "Fleet Depots",
-    "Data Centers",
-    "Grid Edge",
-    "Industrial Parks",
-    "Distribution Hubs",
+    "AI Data Centers",
+    "Hyperscale Compute",
+    "Rural Areas",
+    "Solar PV Plants",
+    "Nuclear SMRs",
+    "Baseload Power",
   ],
-  opportunityZoneTitle: "Qualified Opportunity Zone Fund",
-  opportunityZoneSubtitle: "Tax-Advantaged Structure",
-  opportunityZoneDescription:
-    "M2PV Capital operates as a Qualified Opportunity Zone Fund, enabling investors to defer and potentially reduce capital gains taxes while investing in transformative energy infrastructure.",
-  opportunityZoneBullets: [
-    "Defer capital gains taxes by reinvesting into a Qualified Opportunity Fund",
-    "10%+ basis step-up for 5-year holds",
-    "Tax-free appreciation on 10-year holds",
-  ],
-  opportunityZoneStatValue: "8,764",
-  opportunityZoneStatLabel: "Designated Opportunity Zones in Target States",
-  opportunityZoneLearnMoreUrl:
-    "https://www.irs.gov/credits-deductions/businesses/opportunity-zones",
-  opportunityZoneLearnMoreText: "Learn More at IRS.gov",
   contactEmail: "ceo@m2pvcapital.com",
+  footerTagline: "AI-grade energy infrastructure for rural America — solar PV and nuclear SMR in rural areas.",
   footerDisclaimer:
     "© 2026 M2PV Capital. This website does not constitute an offer to sell or a solicitation of an offer to buy any securities.",
 };
@@ -193,38 +172,38 @@ export const NAV_LINKS = [
 export const DEFAULT_SECTORS: Sector[] = [
   {
     _id: "1",
-    name: "Mobility",
-    shortDescription: "Electrifying Critical Corridors",
+    name: "Solar PV Plants",
+    shortDescription: "Utility-Scale Generation in Rural Areas",
     fullDescription:
-      "High-speed charging networks positioned along the Southwest's busiest logistics routes — I-10, I-40, and the CANAMEX corridor.",
-    icon: "Zap",
+      "Co-developed utility-scale photovoltaic plants sited in rural areas — supplying low-cost, low-carbon electrons directly to co-located AI data centers.",
+    icon: "Sun",
     stats: [
-      { value: "200+ MW", label: "Capacity" },
-      { value: "50+ Sites", label: "Locations" },
+      { value: "1+ GW", label: "PV Pipeline" },
+      { value: "Co-Located", label: "AI Offtake" },
     ],
   },
   {
     _id: "2",
-    name: "Digital Infrastructure",
-    shortDescription: "Solar-Powered Hyperscale",
+    name: "Nuclear SMRs",
+    shortDescription: "24/7 Baseload for AI Compute",
     fullDescription:
-      "Sustainable data centers powered by renewable generation, leveraging abundant desert solar for AI and cloud computing.",
-    icon: "Server",
+      "Small modular reactors deployed in rural areas to provide dispatchable, firm baseload power — the round-the-clock complement that AI training and inference workloads require.",
+    icon: "Zap",
     stats: [
-      { value: "500+ MW", label: "Power" },
-      { value: "Tier III+", label: "Rating" },
+      { value: "Firm", label: "Baseload" },
+      { value: "Modular", label: "Deployment" },
     ],
   },
   {
     _id: "3",
-    name: "Renewables",
-    shortDescription: "Grid-Scale Solar & Storage",
+    name: "AI Data Center Power",
+    shortDescription: "Behind-the-Meter Compute Offtake",
     fullDescription:
-      "Utility-scale PV and battery storage systems stabilizing the Western Interconnection with contracted cash flows.",
-    icon: "Sun",
+      "Behind-the-meter power agreements pairing our solar PV and SMR generation with hyperscale and AI data center operators — vertically integrating supply with surging compute demand.",
+    icon: "Server",
     stats: [
-      { value: "1+ GW", label: "Pipeline" },
-      { value: "Contracted", label: "PPAs" },
+      { value: "Long-Term", label: "PPAs" },
+      { value: "Hyperscale", label: "Offtakers" },
     ],
   },
 ];
@@ -246,16 +225,18 @@ export const DEFAULT_INSIGHTS: Insight[] = [
   { _id: "3", title: "Fleet Electrification: The Logistics Opportunity", category: "NEWS", date: "DEC 10, 2025", readTime: "3 MIN READ", excerpt: "Mapping the depot charging infrastructure needed for commercial fleet transitions along I-10." },
 ];
 
+// Order matches DEFAULT_SECTORS: [0] Solar PV, [1] Nuclear SMR, [2] AI Data Center.
+// Nuclear uses a locally-hosted JPG; solar + data center are Unsplash photos.
 export const SECTOR_IMAGES = [
-  "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1200&q=80",
-  "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
-  "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=80",
+  "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=80",
+  "/sectors/nuclear.jpg",
+  "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80",
 ];
 
 export const INSIGHT_IMAGES = [
-  "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
-  "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80",
-  "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80",
+  "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
+  "/sectors/nuclear.jpg",
+  "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=80",
 ];
 
 // ============================================================================
@@ -1001,7 +982,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               <span className="text-[15px] font-semibold text-white tracking-tight">M2PV Capital</span>
             </div>
             <p className="text-sm text-white/40 leading-relaxed max-w-xs">
-              {settings.footerTagline || D.footerTagline || "Energy infrastructure private equity focused on the American Southwest."}
+              {settings.footerTagline || D.footerTagline || "AI-grade energy infrastructure for rural America — solar PV and nuclear SMR in rural areas."}
             </p>
           </div>
 
@@ -1019,7 +1000,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           <div>
             <h4 className="text-[11px] font-semibold text-white/30 uppercase tracking-[0.15em] mb-4">Sectors</h4>
             <ul className="space-y-2.5">
-              {["Mobility", "Digital Infrastructure", "Renewables"].map((s) => (
+              {["Solar PV Plants", "Nuclear SMRs", "AI Data Center Power"].map((s) => (
                 <li key={s}>
                   <a href="/sectors" className="text-sm text-white/50 hover:text-white transition-colors">{s}</a>
                 </li>
@@ -1070,8 +1051,8 @@ export function PageHero({ label, title, subtitle }: { label: string; title: str
   return (
     <section ref={ref} className="relative pt-28 sm:pt-32 lg:pt-40 pb-14 sm:pb-16 lg:pb-20 bg-primary overflow-hidden">
       {/* Ambient gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[#252b45] opacity-100" />
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent-500/[0.04] to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[#1a1a1a] opacity-100" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/[0.04] to-transparent" />
 
       <motion.div style={{ y: textY, opacity }} className="relative z-10 mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
         <motion.div

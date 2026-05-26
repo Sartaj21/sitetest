@@ -6,7 +6,7 @@ export const revalidate = 60
 
 export const metadata = {
   title: 'Sectors | M2PV Capital',
-  description: 'Explore our investment focus areas: Mobility, Digital Infrastructure, and Renewables.',
+  description: 'Explore our investment focus areas: utility-scale solar PV plants, nuclear SMRs, and AI data center power offtake in rural areas.',
   alternates: {
     canonical: '/sectors',
   },

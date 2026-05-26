@@ -51,7 +51,6 @@ You'll see the Sanity Studio dashboard where you can:
 - Thesis section content & stats
 - Ecosystem section text
 - Rotating words for animation
-- Opportunity zone content
 - Contact info (email, phone, address)
 - Footer tagline
 

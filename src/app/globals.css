@@ -5,15 +5,15 @@
 @tailwind utilities;
 
 :root {
-  --foreground: #1a1f36;
+  --foreground: #000000;
   --background: #ffffff;
-  --accent: #c9a96e;
-  --accent-dark: #b08d4f;
-  --navy: #1a1f36;
-  --navy-light: #2d3352;
-  --surface: #f8f9fc;
-  --border: #e8e9ee;
-  --muted: #6b7194;
+  --accent: #525252;
+  --accent-dark: #262626;
+  --navy: #000000;
+  --navy-light: #1a1a1a;
+  --surface: #f5f5f5;
+  --border: #e5e5e5;
+  --muted: #737373;
 }
 
 html {
@@ -51,7 +51,7 @@ body {
 
 /* Selection styling */
 ::selection {
-  background-color: rgba(201, 169, 110, 0.2);
+  background-color: rgba(0, 0, 0, 0.15);
   color: var(--navy);
 }
 

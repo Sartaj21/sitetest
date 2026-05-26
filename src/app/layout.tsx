@@ -5,29 +5,28 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#1a1f36",
+  themeColor: "#000000",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://m2pvcapital.com"),
   title: {
-    default: "M2PV Capital | Energy Infrastructure Private Equity",
+    default: "M2PV Capital | AI Energy Infrastructure Private Equity",
     template: "%s | M2PV Capital",
   },
   description:
-    "M2PV Capital deploys growth equity and project capital across sustainable mobility, solar generation, battery storage, and green data infrastructure in the American Southwest.",
+    "M2PV Capital deploys growth equity and project capital into utility-scale solar PV plants and nuclear SMRs sited in rural areas, powering AI and hyperscale data center demand.",
   keywords: [
     "Private Equity",
-    "Energy Infrastructure",
-    "EV Charging",
-    "Data Centers",
-    "Solar",
-    "Renewable Energy",
-    "Battery Storage",
-    "Opportunity Zone Fund",
+    "AI Energy Infrastructure",
+    "Solar PV",
+    "Nuclear SMR",
+    "Small Modular Reactor",
+    "AI Data Centers",
+    "Hyperscale",
+    "Rural Areas",
     "M2PV Capital",
-    "Southwest Energy",
-    "Green Infrastructure",
+    "Clean Baseload",
   ],
   authors: [{ name: "M2PV Capital" }],
   creator: "M2PV Capital",
@@ -38,9 +37,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "M2PV Capital | Energy Infrastructure Private Equity",
+    title: "M2PV Capital | AI Energy Infrastructure Private Equity",
     description:
-      "Deploying growth equity and project capital across sustainable mobility, solar generation, battery storage, and green data infrastructure.",
+      "Deploying growth equity and project capital into utility-scale solar PV plants and nuclear SMRs in rural areas — powering AI data center demand.",
     type: "website",
     url: "https://m2pvcapital.com",
     siteName: "M2PV Capital",
@@ -48,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "M2PV Capital | Energy Infrastructure Private Equity",
+    title: "M2PV Capital | AI Energy Infrastructure Private Equity",
     description:
-      "Deploying growth equity and project capital across sustainable mobility, solar generation, battery storage, and green data infrastructure.",
+      "Deploying growth equity and project capital into utility-scale solar PV plants and nuclear SMRs in rural areas — powering AI data center demand.",
   },
   robots: {
     index: true,
@@ -87,7 +86,7 @@ export default function RootLayout({
               name: "M2PV Capital",
               url: "https://m2pvcapital.com",
               description:
-                "Energy infrastructure private equity firm deploying growth equity and project capital across sustainable mobility, solar generation, battery storage, and green data infrastructure in the American Southwest.",
+                "AI energy infrastructure private equity firm deploying utility-scale solar PV plants and nuclear SMRs in rural areas to power AI and hyperscale data center demand.",
               foundingDate: "2024",
               founders: [
                 {
@@ -98,7 +97,7 @@ export default function RootLayout({
               ],
               address: {
                 "@type": "PostalAddress",
-                addressRegion: "American Southwest",
+                addressRegion: "Rural Areas",
                 addressCountry: "US",
               },
               sameAs: [],
@@ -111,7 +110,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-white text-[#1a1f36] antialiased">
+      <body className="bg-white text-black antialiased">
         {children}
       </body>
     </html>

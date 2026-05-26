@@ -31,9 +31,9 @@ interface PageClientProps {
 }
 
 const HERO_STATEMENTS = [
-  "Powering the Energy Transition",
-  "Building Critical Infrastructure",
-  "Deploying Capital with Purpose",
+  "Powering AI With Clean Energy",
+  "Solar PV & Nuclear SMR for Rural America",
+  "Energy Deployment in Rural America",
 ];
 
 // ============================================================================
@@ -66,10 +66,10 @@ function HeroCanvas() {
     }
 
     const layers = [
-      { yCenter: 0.30, amplitude: 0.12, frequency: 0.0015, speed: 0.18, thickness: 0.22, r: 201, g: 169, b: 110, alpha: 0.18, phase: 0 },
-      { yCenter: 0.45, amplitude: 0.10, frequency: 0.002, speed: 0.24, thickness: 0.18, r: 218, g: 195, b: 140, alpha: 0.14, phase: 1.2 },
-      { yCenter: 0.25, amplitude: 0.08, frequency: 0.0025, speed: 0.15, thickness: 0.12, r: 190, g: 160, b: 100, alpha: 0.10, phase: 2.5 },
-      { yCenter: 0.58, amplitude: 0.09, frequency: 0.0018, speed: 0.20, thickness: 0.15, r: 201, g: 169, b: 110, alpha: 0.12, phase: 3.8 },
+      { yCenter: 0.30, amplitude: 0.12, frequency: 0.0015, speed: 0.18, thickness: 0.22, r: 60, g: 60, b: 60, alpha: 0.16, phase: 0 },
+      { yCenter: 0.45, amplitude: 0.10, frequency: 0.002, speed: 0.24, thickness: 0.18, r: 120, g: 120, b: 120, alpha: 0.12, phase: 1.2 },
+      { yCenter: 0.25, amplitude: 0.08, frequency: 0.0025, speed: 0.15, thickness: 0.12, r: 30, g: 30, b: 30, alpha: 0.10, phase: 2.5 },
+      { yCenter: 0.58, amplitude: 0.09, frequency: 0.0018, speed: 0.20, thickness: 0.15, r: 80, g: 80, b: 80, alpha: 0.12, phase: 3.8 },
     ];
 
     // Reusable spine array — avoids per-frame allocation
@@ -145,7 +145,7 @@ function HeroCanvas() {
         const pulse = p.alpha * (0.6 + 0.4 * Math.sin(t * 0.8 + p.phase));
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(201,169,110,${pulse})`;
+        ctx!.fillStyle = `rgba(80,80,80,${pulse})`;
         ctx!.fill();
       }
     }
@@ -194,10 +194,9 @@ function HeroCanvas() {
 // HERO SECTION
 // ============================================================================
 
-function HeroSection({ settings }: { settings: SiteSettings }) {
+function HeroSection() {
   const [idx, setIdx] = useState(0);
   const headlines = HERO_STATEMENTS;
-  const sub = settings.heroSubheadline || D.heroSubheadline!;
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
@@ -236,7 +235,7 @@ function HeroSection({ settings }: { settings: SiteSettings }) {
                 className="w-8 h-px bg-primary origin-left"
               />
               <span className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-primary/60">
-                Energy Infrastructure
+                AI Energy Infrastructure
               </span>
             </motion.div>
 
@@ -254,15 +253,6 @@ function HeroSection({ settings }: { settings: SiteSettings }) {
                 </motion.h1>
               </AnimatePresence>
             </div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="text-base sm:text-lg text-primary/70 max-w-lg leading-relaxed"
-            >
-              {sub}
-            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -323,7 +313,7 @@ function MissionGraphic({ inView }: { inView: boolean }) {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-          className="w-full h-full rounded-full border border-white/[0.06]"
+          className="w-full h-full rounded-full border border-black/[0.08]"
         />
       </motion.div>
 
@@ -337,11 +327,11 @@ function MissionGraphic({ inView }: { inView: boolean }) {
         <motion.div
           animate={{ rotate: -360 }}
           transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-          className="w-full h-full rounded-full border border-accent-400/[0.12]"
+          className="w-full h-full rounded-full border border-black/[0.15]"
         >
           {/* Orbiting dot */}
           <motion.div
-            className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-accent-400/40"
+            className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-black/40"
           />
         </motion.div>
       </motion.div>
@@ -356,10 +346,10 @@ function MissionGraphic({ inView }: { inView: boolean }) {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="w-full h-full rounded-full border border-accent-400/[0.18]"
+          className="w-full h-full rounded-full border border-black/[0.22]"
         >
           <motion.div
-            className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent-400/60"
+            className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-black/60"
           />
         </motion.div>
       </motion.div>
@@ -372,9 +362,9 @@ function MissionGraphic({ inView }: { inView: boolean }) {
         className="absolute inset-[42%] flex items-center justify-center"
       >
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
+          animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="w-full h-full rounded-full bg-accent-400/20 blur-sm"
+          className="w-full h-full rounded-full bg-black/20 blur-sm"
         />
       </motion.div>
 
@@ -385,8 +375,8 @@ function MissionGraphic({ inView }: { inView: boolean }) {
         transition={{ duration: 1.5, delay: 0.5 }}
         className="absolute inset-0 flex items-center justify-center"
       >
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
-        <div className="absolute w-px h-full bg-gradient-to-b from-transparent via-white/[0.05] to-transparent" />
+        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-black/[0.08] to-transparent" />
+        <div className="absolute w-px h-full bg-gradient-to-b from-transparent via-black/[0.08] to-transparent" />
       </motion.div>
 
       {/* Corner markers */}
@@ -404,10 +394,10 @@ function MissionGraphic({ inView }: { inView: boolean }) {
             right: i % 2 === 1 ? "18%" : undefined,
           }}
         >
-          <div className={`absolute w-full h-px bg-accent-400/25 ${
+          <div className={`absolute w-full h-px bg-black/30 ${
             i % 2 === 0 ? "left-0" : "right-0"
           }`} />
-          <div className={`absolute w-px h-full bg-accent-400/25 ${
+          <div className={`absolute w-px h-full bg-black/30 ${
             i < 2 ? "top-0" : "bottom-0"
           }`} />
         </motion.div>
@@ -421,7 +411,7 @@ function MissionSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="relative py-16 sm:py-24 lg:py-32 bg-primary overflow-hidden">
+    <section className="relative py-16 sm:py-24 lg:py-32 bg-white overflow-hidden">
       <div className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
         <div ref={ref} className="relative">
           {/* Animated geometric graphic */}
@@ -433,20 +423,20 @@ function MissionSection() {
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="w-16 h-px bg-accent-400 origin-left mb-8"
+              className="w-16 h-px bg-black origin-left mb-8"
             />
             <TextReveal
               as="h2"
-              className="text-[clamp(1.4rem,3vw,2.5rem)] font-serif text-white leading-[1.35] tracking-[-0.01em]"
+              className="text-[clamp(1.4rem,3vw,2.5rem)] font-serif text-primary leading-[1.35] tracking-[-0.01em]"
             >
-              M2PV Capital is a energy infrastructure investment firm. We aim to deliver strong returns and lasting impact across the communities we touch.
+              M2PV Capital deploys solar PV plants and nuclear SMRs in rural areas — financing the energy that powers AI and delivering durable returns to the communities we build in.
             </TextReveal>
             <motion.a
               href="/about"
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="mt-7 sm:mt-8 inline-flex items-center gap-2 text-accent-300 hover:text-white text-sm font-semibold uppercase tracking-[0.15em] transition-colors group border-b border-accent-400/30 pb-1 hover:border-white/50"
+              className="mt-7 sm:mt-8 inline-flex items-center gap-2 text-neutral-600 hover:text-black text-sm font-semibold uppercase tracking-[0.15em] transition-colors group border-b border-black/30 pb-1 hover:border-black"
             >
               Learn About M2PV
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -474,7 +464,7 @@ function StatsBanner({ settings }: { settings: SiteSettings }) {
   ];
 
   return (
-    <RevealSection className="py-10 sm:py-12 lg:py-16 bg-white">
+    <RevealSection className="py-10 sm:py-12 lg:py-16 bg-[#f5f5f5]">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-6 sm:gap-x-8">
           {stats.map((s, i) => (
@@ -498,6 +488,84 @@ function StatsBanner({ settings }: { settings: SiteSettings }) {
         <p className="mt-4 text-gray-300 text-[10px]">{settings.statsSource || D.statsSource}</p>
       </div>
     </RevealSection>
+  );
+}
+
+// ============================================================================
+// INVESTMENT THESIS — Problem framing + why this is the opportunity
+// ============================================================================
+
+function InvestmentThesisSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const stats = [
+    { v: "30+ GW", l: "Hyperscaler PPAs signed in 2024" },
+    { v: "2,600+ GW", l: "Stuck in U.S. interconnection queue" },
+    { v: "8,764", l: "Rural tracts eligible for deployment" },
+    { v: "$1T+", l: "U.S. AI power capex through 2030" },
+  ];
+
+  return (
+    <section className="relative bg-black text-white overflow-hidden">
+      <div ref={ref} className="relative mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16 py-20 sm:py-24 lg:py-28">
+        <motion.div
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={fadeUp}
+          className="flex items-center gap-3 mb-6"
+        >
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="w-10 h-px bg-white origin-left"
+          />
+          <span className="text-[11px] sm:text-xs font-bold tracking-[0.24em] uppercase text-white">
+            Investment Thesis
+          </span>
+        </motion.div>
+
+        <TextReveal
+          as="h2"
+          className="text-[clamp(1.85rem,4.2vw,3.5rem)] font-serif text-white leading-[1.1] tracking-[-0.015em] max-w-4xl"
+        >
+          AI&apos;s power problem is a once-in-a-generation infrastructure opportunity.
+        </TextReveal>
+
+        {/* Stat-led grid */}
+        <motion.div
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={staggerContainer}
+          className="mt-14 sm:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-10"
+        >
+          {stats.map((s, i) => (
+            <motion.div
+              key={i}
+              variants={staggerItem}
+              className="border-t border-white/[0.15] pt-5"
+            >
+              <p className="text-[clamp(2rem,4vw,3.25rem)] font-serif text-white tracking-tight leading-none">
+                <CountUp value={s.v} />
+              </p>
+              <p className="mt-3 text-[11px] sm:text-xs text-white/55 uppercase tracking-[0.15em] font-medium leading-snug">
+                {s.l}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 1 }}
+          className="mt-10 text-[10px] text-white/30 tracking-wide"
+        >
+          Sources: DOE, EIA, NREL, McKinsey Global Energy Perspective, U.S. Treasury.
+        </motion.p>
+      </div>
+    </section>
   );
 }
 
@@ -527,14 +595,6 @@ function EdgeSection() {
             >
               We don&apos;t just invest in infrastructure. We engineer it.
             </TextReveal>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-5 text-[15px] text-white/50 leading-[1.75] max-w-md"
-            >
-              Our principals bring decades of system architecture and energy engineering expertise to every deal, creating a level of quality control that purely financial sponsors cannot replicate.
-            </motion.p>
           </motion.div>
 
           {/* Right — two pillars */}
@@ -548,15 +608,13 @@ function EdgeSection() {
               <div className="w-10 h-10 rounded bg-accent-400/10 flex items-center justify-center text-accent-400 mb-5 group-hover:scale-110 transition-transform duration-300">
                 <Crosshair className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-serif text-white mb-3">Co-Developed Investments</h3>
-              <p className="text-[13px] sm:text-sm text-white/45 leading-[1.7]">As experienced system architects, we don&apos;t just fund projects — we co-develop them. From system design to commissioning, our hands-on involvement gives us direct control over quality, timeline, and execution risk.</p>
+              <h3 className="text-lg font-serif text-white">Co-Developed Investments</h3>
             </motion.div>
             <motion.div variants={staggerItem} className="group bg-white/[0.04] border border-white/[0.08] hover:border-accent-400/30 rounded-sm p-6 sm:p-7 transition-all duration-500 hover:bg-white/[0.07]">
               <div className="w-10 h-10 rounded bg-accent-400/10 flex items-center justify-center text-accent-400 mb-5 group-hover:scale-110 transition-transform duration-300">
                 <Shield className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-serif text-white mb-3">Engineering-Grade Diligence</h3>
-              <p className="text-[13px] sm:text-sm text-white/45 leading-[1.7]">Because our principals are both engineers and investment professionals, we evaluate every opportunity through a dual lens — technical feasibility and financial merit — so we know exactly what constitutes a quality investment.</p>
+              <h3 className="text-lg font-serif text-white">Engineering-Grade Diligence</h3>
             </motion.div>
           </motion.div>
         </div>
@@ -586,7 +644,7 @@ function SectorsPreview({ sectors }: { sectors: Sector[] }) {
 
   return (
     <section ref={sectionRef} className="relative bg-white">
-    <motion.div style={{ clipPath }} className="py-16 sm:py-20 lg:py-28 bg-[#f0f2f8]">
+    <motion.div style={{ clipPath }} className="py-16 sm:py-20 lg:py-28 bg-[#f5f5f5]">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
 
         {/* Sectors Preview */}
@@ -597,7 +655,7 @@ function SectorsPreview({ sectors }: { sectors: Sector[] }) {
               as="h2"
               className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-serif text-primary leading-[1.2] tracking-[-0.01em] max-w-xl"
             >
-              Investing across the energy value chain
+              Deploying energy that powers AI
             </TextReveal>
             <a
               href="/sectors"
@@ -702,7 +760,7 @@ function InsightsPreview({ insights }: { insights: Insight[] }) {
                 key={item._id}
                 href="/insights"
                 variants={staggerItem}
-                className="group bg-[#f8f9fc] border border-gray-200/60 rounded-sm overflow-hidden hover:shadow-2xl hover:border-gray-300 transition-all duration-500 hover:-translate-y-1"
+                className="group bg-[#fafafa] border border-gray-200/60 rounded-sm overflow-hidden hover:shadow-2xl hover:border-gray-300 transition-all duration-500 hover:-translate-y-1"
               >
                 <div className="aspect-[16/10] overflow-hidden">
                   <img
@@ -740,7 +798,7 @@ function ContactCTA({ settings }: { settings: SiteSettings }) {
   const email = settings.contactEmail || D.contactEmail!;
 
   return (
-    <RevealSection className="py-16 sm:py-20 lg:py-28 bg-[#f0f2f8]">
+    <RevealSection className="py-16 sm:py-20 lg:py-28 bg-[#f5f5f5]">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="max-w-2xl">
           <SectionLabel>Get In Touch</SectionLabel>
@@ -748,17 +806,8 @@ function ContactCTA({ settings }: { settings: SiteSettings }) {
             as="h2"
             className="text-[clamp(1.75rem,4vw,3rem)] font-serif text-primary leading-[1.2] tracking-[-0.01em]"
           >
-            Let&apos;s build the future of energy together.
+            Let&apos;s build the energy backbone of AI together.
           </TextReveal>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mt-5 text-[15px] sm:text-base text-gray-500 leading-relaxed max-w-md"
-          >
-            We welcome inquiries from institutional investors, family offices, and strategic partners
-            interested in the energy transition.
-          </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -796,7 +845,8 @@ export default function PageClient({ settings, team, sectors, insights }: PageCl
   return (
     <div className="min-h-screen bg-white antialiased overflow-x-hidden">
       <Navbar />
-      <HeroSection settings={s} />
+      <HeroSection />
+      <InvestmentThesisSection />
       <MissionSection />
       <StatsBanner settings={s} />
       <EdgeSection />

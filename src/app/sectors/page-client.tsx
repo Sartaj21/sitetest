@@ -22,8 +22,8 @@ export default function SectorsPageClient({ settings, sectors }: SectorsPageClie
       <Navbar />
       <PageHero
         label="Focus Areas"
-        title="Investing across the energy value chain."
-        subtitle="We target high-conviction opportunities at the intersection of renewable energy, digital infrastructure, and sustainable transportation."
+        title="Deploying the energy that powers AI."
+        subtitle="We target utility-scale solar PV and small modular nuclear reactors sited in rural areas — directly paired with AI and hyperscale data center offtake."
       />
       <SectorsList sectors={sectors} />
       <ThesisBanner settings={s} />
@@ -143,7 +143,7 @@ function ThesisBanner({ settings }: { settings: SiteSettings }) {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <RevealSection className="py-14 sm:py-16 lg:py-20 bg-[#f0f2f8]">
+    <RevealSection className="py-14 sm:py-16 lg:py-20 bg-[#f5f5f5]">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="max-w-3xl">
           <TextReveal

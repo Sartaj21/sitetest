@@ -8,7 +8,6 @@ export const siteSettings = defineType({
     { name: 'hero', title: 'Hero Section' },
     { name: 'thesis', title: 'Thesis Section' },
     { name: 'ecosystem', title: 'Ecosystem Section' },
-    { name: 'opportunityZone', title: 'Opportunity Zone' },
     { name: 'contact', title: 'Contact & Footer' },
     { name: 'styling', title: 'Colors & Styling' },
   ],
@@ -93,7 +92,7 @@ export const siteSettings = defineType({
       name: 'stat4Value',
       title: 'Stat 4 Value',
       type: 'string',
-      description: 'e.g., "8,764" for Opportunity Zones',
+      description: 'e.g., "8,764"',
       group: 'thesis',
     }),
     defineField({
@@ -131,64 +130,6 @@ export const siteSettings = defineType({
       of: [{ type: 'string' }],
       description: 'Words that rotate in "The grid powers everything except for..."',
       group: 'ecosystem',
-    }),
-
-    // === OPPORTUNITY ZONE SECTION ===
-    defineField({
-      name: 'opportunityZoneTitle',
-      title: 'Opportunity Zone Title',
-      type: 'string',
-      group: 'opportunityZone',
-    }),
-    defineField({
-      name: 'opportunityZoneSubtitle',
-      title: 'Opportunity Zone Subtitle',
-      type: 'string',
-      description: 'Small text above title (e.g., "Tax-Advantaged Structure")',
-      group: 'opportunityZone',
-    }),
-    defineField({
-      name: 'opportunityZoneDescription',
-      title: 'Opportunity Zone Description',
-      type: 'text',
-      rows: 3,
-      group: 'opportunityZone',
-    }),
-    defineField({
-      name: 'opportunityZoneBullets',
-      title: 'Opportunity Zone Bullet Points',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'List of benefits/features',
-      group: 'opportunityZone',
-    }),
-    defineField({
-      name: 'opportunityZoneStatValue',
-      title: 'Opportunity Zone Stat Value',
-      type: 'string',
-      description: 'e.g., "8,764"',
-      group: 'opportunityZone',
-    }),
-    defineField({
-      name: 'opportunityZoneStatLabel',
-      title: 'Opportunity Zone Stat Label',
-      type: 'string',
-      description: 'e.g., "Designated Opportunity Zones in Target States"',
-      group: 'opportunityZone',
-    }),
-    defineField({
-      name: 'opportunityZoneLearnMoreUrl',
-      title: 'Learn More URL',
-      type: 'url',
-      description: 'Link to IRS or external resource',
-      group: 'opportunityZone',
-    }),
-    defineField({
-      name: 'opportunityZoneLearnMoreText',
-      title: 'Learn More Button Text',
-      type: 'string',
-      description: 'e.g., "Learn More at IRS.gov"',
-      group: 'opportunityZone',
     }),
 
     // === CONTACT & FOOTER ===

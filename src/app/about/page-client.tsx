@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowUpRight, Zap, Server, Sun, Battery } from "lucide-react";
+import { Zap, Server, Sun, Battery } from "lucide-react";
 import {
   SiteSettings, D, fadeUp, fadeLeft, fadeRight, staggerContainer, staggerItem,
   Navbar, Footer, PageHero, SectionLabel,
@@ -22,12 +22,11 @@ export default function AboutPageClient({ settings }: AboutPageClientProps) {
       <Navbar />
       <PageHero
         label="About M2PV Capital"
-        title="Building the energy infrastructure of tomorrow."
-        subtitle="We deploy growth equity and project capital across sustainable mobility, solar generation, battery storage, and green data infrastructure."
+        title="Building the energy backbone of AI."
+        subtitle="We deploy growth equity and project capital into utility-scale solar PV plants and small modular nuclear reactors sited in rural areas."
       />
       <FirmOverview settings={s} />
       <InvestmentApproach />
-      <OpportunityZone settings={s} />
       <Footer settings={s} />
     </div>
   );
@@ -56,7 +55,7 @@ function FirmOverview({ settings }: { settings: SiteSettings }) {
               as="h2"
               className="text-[clamp(1.5rem,3vw,2.25rem)] font-serif text-primary leading-[1.25] tracking-[-0.01em]"
             >
-              M2PV Capital is a energy infrastructure investment firm focused on the American Southwest.
+              M2PV Capital is an AI-energy infrastructure firm focused on solar PV and nuclear SMR deployment in rural areas.
             </TextReveal>
           </motion.div>
 
@@ -67,22 +66,22 @@ function FirmOverview({ settings }: { settings: SiteSettings }) {
             className="lg:col-span-7 lg:pt-4"
           >
             <p className="text-[15px] sm:text-base text-gray-600 leading-[1.8]">
-              M2PV Capital deploys growth equity and project capital across sustainable mobility,
-              solar generation, battery storage, and green data infrastructure. We target the
-              convergence of renewable energy and digital demand, building vertically integrated
-              platforms that capture value at every stage of the electron&apos;s journey.
+              M2PV Capital deploys growth equity and project capital into utility-scale solar PV plants
+              and small modular nuclear reactors located in rural areas.
+              We pair this generation directly with AI and hyperscale data center offtake — building
+              vertically integrated platforms that capture value at every stage of the electron&apos;s journey to compute.
             </p>
             <p className="mt-5 text-[15px] sm:text-base text-gray-600 leading-[1.8]">
               What sets us apart: our principals are experienced system engineers who co-develop every
-              investment we pursue. We don&apos;t just deploy capital — we design, engineer, and oversee project
-              execution, giving us direct control over quality, cost, and timeline that purely financial
-              sponsors cannot replicate.
+              investment we pursue. We don&apos;t just deploy capital — we design, engineer, and oversee
+              PV and SMR project execution, giving us direct control over quality, cost, and timeline
+              that purely financial sponsors cannot replicate.
             </p>
             <p className="mt-5 text-[15px] sm:text-base text-gray-600 leading-[1.8]">
               Because our team combines deep engineering expertise with investment experience,
               we evaluate every opportunity through a dual lens — technical feasibility and financial merit.
-              We believe the Southwest Sunbelt represents the most compelling opportunity set in North American
-              energy infrastructure today.
+              We believe rural areas, paired with AI compute offtake, represent the most compelling
+              energy infrastructure opportunity set in North America today.
             </p>
             <LineReveal className="mt-8" />
             <motion.div
@@ -121,7 +120,7 @@ function InvestmentApproach() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <RevealSection className="py-16 sm:py-20 lg:py-28 bg-[#f0f2f8]">
+    <RevealSection className="py-16 sm:py-20 lg:py-28 bg-[#f5f5f5]">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
         <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} variants={fadeUp}>
           <SectionLabel>Our Approach</SectionLabel>
@@ -129,7 +128,7 @@ function InvestmentApproach() {
             as="h2"
             className="text-[clamp(1.5rem,3vw,2.5rem)] font-serif text-primary leading-[1.25] tracking-[-0.01em] max-w-2xl"
           >
-            An engineer-led platform that captures value across the full energy value chain.
+            An engineer-led platform deploying solar and nuclear generation behind AI compute.
           </TextReveal>
         </motion.div>
 
@@ -140,10 +139,10 @@ function InvestmentApproach() {
           className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
         >
           {[
-            { num: "01", title: "Generation", desc: "Utility-scale solar PV and wind projects in peak irradiance zones.", icon: <Sun className="w-5 h-5" /> },
-            { num: "02", title: "Storage", desc: "Grid-scale battery storage systems for peak shaving and grid stability.", icon: <Battery className="w-5 h-5" /> },
-            { num: "03", title: "Mobility", desc: "EV charging networks along critical logistics corridors.", icon: <Zap className="w-5 h-5" /> },
-            { num: "04", title: "Compute", desc: "Solar-powered AI data centers serving hyperscale demand.", icon: <Server className="w-5 h-5" /> },
+            { num: "01", title: "Solar PV", desc: "Utility-scale photovoltaic plants co-developed in rural areas.", icon: <Sun className="w-5 h-5" /> },
+            { num: "02", title: "Nuclear SMR", desc: "Small modular reactors delivering 24/7 firm baseload for AI workloads.", icon: <Zap className="w-5 h-5" /> },
+            { num: "03", title: "Storage & Firming", desc: "Battery storage paired with PV to firm intermittent generation.", icon: <Battery className="w-5 h-5" /> },
+            { num: "04", title: "AI Compute Offtake", desc: "Behind-the-meter PPAs with hyperscale and AI data center operators.", icon: <Server className="w-5 h-5" /> },
           ].map((step) => (
             <motion.div
               key={step.num}
@@ -164,79 +163,3 @@ function InvestmentApproach() {
   );
 }
 
-// ============================================================================
-// OPPORTUNITY ZONE
-// ============================================================================
-
-function OpportunityZone({ settings }: { settings: SiteSettings }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const bullets = settings.opportunityZoneBullets || D.opportunityZoneBullets!;
-
-  return (
-    <RevealSection className="py-16 sm:py-20 lg:py-28 bg-white">
-      <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} variants={fadeLeft} className="lg:col-span-7">
-            <SectionLabel>{settings.opportunityZoneSubtitle || D.opportunityZoneSubtitle!}</SectionLabel>
-            <TextReveal
-              as="h2"
-              className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-serif text-primary leading-[1.2]"
-            >
-              {settings.opportunityZoneTitle || D.opportunityZoneTitle || "Qualified Opportunity Zone Fund"}
-            </TextReveal>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-6 text-[15px] sm:text-base text-gray-500 leading-[1.75]"
-            >
-              {settings.opportunityZoneDescription || D.opportunityZoneDescription}
-            </motion.p>
-            <motion.ul
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              variants={staggerContainer}
-              className="mt-8 space-y-3"
-            >
-              {bullets.map((b) => (
-                <motion.li key={b} variants={staggerItem} className="flex items-start gap-3">
-                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent-400 shrink-0" />
-                  <span className="text-sm sm:text-[15px] text-gray-600">{b}</span>
-                </motion.li>
-              ))}
-            </motion.ul>
-            <motion.a
-              href={settings.opportunityZoneLearnMoreUrl || D.opportunityZoneLearnMoreUrl!}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="mt-6 inline-flex items-center gap-2 text-accent-500 hover:text-accent-700 text-sm font-semibold transition-colors group"
-            >
-              {settings.opportunityZoneLearnMoreText || D.opportunityZoneLearnMoreText}
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-            </motion.a>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            variants={fadeRight}
-            className="lg:col-span-5 flex justify-start lg:justify-center"
-          >
-            <div className="border-l-2 border-accent-400 pl-8 sm:pl-10">
-              <p className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif text-primary tracking-tight leading-none">
-                <CountUp value={settings.opportunityZoneStatValue || D.opportunityZoneStatValue || "8,764"} />
-              </p>
-              <p className="mt-3 text-xs sm:text-sm text-gray-400 tracking-wide uppercase max-w-[240px]">
-                {settings.opportunityZoneStatLabel || D.opportunityZoneStatLabel}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </RevealSection>
-  );
-}

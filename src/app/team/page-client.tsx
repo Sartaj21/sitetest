@@ -6,8 +6,8 @@ import { Linkedin } from "lucide-react";
 import {
   SiteSettings, TeamMember, D,
   fadeUp, staggerContainer, staggerItem,
-  Navbar, Footer, PageHero, SectionLabel,
-  TextReveal, RevealSection, urlFor,
+  Navbar, Footer, PageHero,
+  RevealSection, urlFor,
 } from "../components";
 
 // ============================================================================
@@ -21,16 +21,8 @@ const FALLBACK_LEADERSHIP: TeamMember[] = [
     title: "Founder & CEO",
     role: "leadership",
     image: null,
-    imagePosition: "95% 15%",
-    bio: "R. M. Mesmer founded M2PV Capital to bridge the gap between engineering excellence and energy infrastructure investment.",
-  },
-  {
-    _id: "f-sarah",
-    name: "Sarah Scott",
-    title: "Chief Financial Officer",
-    role: "leadership",
-    image: null,
-    bio: "Sarah oversees all financial operations, fund accounting, and investor relations at M2PV Capital.",
+    imagePosition: "center 20%",
+    bio: "M2 founded M2PV Capital to bridge engineering excellence and energy infrastructure investment. He leads the firm's deployment of solar PV and small modular nuclear into rural areas supplying the next generation of American AI compute.",
   },
   {
     _id: "f-gabriel",
@@ -38,7 +30,7 @@ const FALLBACK_LEADERSHIP: TeamMember[] = [
     title: "Advisor",
     role: "leadership",
     image: null,
-    bio: "Gabriel serves as a strategic advisor to M2PV Capital, bringing extensive experience in energy markets.",
+    bio: "Gabriel advises M2PV Capital on strategy, capital markets, and project finance, bringing extensive experience across U.S. markets.",
   },
 ];
 
@@ -66,10 +58,16 @@ const FALLBACK_OPERATING: TeamMember[] = [
   },
 ];
 
-// Local image fallbacks (used when member has no Sanity image)
+// Local image fallbacks. Keyed by both _id (stable) AND name (for Sanity data),
+// so cases like "R. M. Mesmer (\"M2\")" still resolve.
 const LOCAL_IMAGES: Record<string, string> = {
-  "R. M. Mesmer": "/m2.jpeg",
-  "Sarah Scott": "/team/sarah.jpg",
+  "f-ralph": "/team/ralph.jpg",
+  "f-gabriel": "/team/gabriel.png",
+  "f-craig": "/team/craig.jpg",
+  "f-mike": "/team/mike.jpg",
+  "f-sartaj": "/team/sartaj.jpg",
+  "R. M. Mesmer (\"M2\")": "/team/ralph.jpg",
+  "R. M. Mesmer": "/team/ralph.jpg",
   "Gabriel Araish": "/team/gabriel.png",
   "Craig Sutton": "/team/craig.jpg",
   "Mike Blackman": "/team/mike.jpg",
@@ -78,9 +76,10 @@ const LOCAL_IMAGES: Record<string, string> = {
 
 function getImageUrl(member: TeamMember): string {
   if (member.image) {
-    return urlFor(member.image)?.width(600).height(800).url() || LOCAL_IMAGES[member.name] || "";
+    const sanityUrl = urlFor(member.image)?.width(900).height(1200).url();
+    if (sanityUrl) return sanityUrl;
   }
-  return LOCAL_IMAGES[member.name] || "";
+  return LOCAL_IMAGES[member._id] || LOCAL_IMAGES[member.name] || "";
 }
 
 // ============================================================================
@@ -95,7 +94,6 @@ interface TeamPageClientProps {
 export default function TeamPageClient({ settings, team }: TeamPageClientProps) {
   const s = settings || D;
 
-  // Split Sanity team by role, fall back to hardcoded if empty
   const sanityLeadership = team.filter((m) => m.role === "leadership");
   const sanityOperating = team.filter((m) => m.role === "operating");
 
@@ -107,8 +105,8 @@ export default function TeamPageClient({ settings, team }: TeamPageClientProps) 
       <Navbar />
       <PageHero
         label="Leadership"
-        title="Our Team"
-        subtitle="Experienced professionals across energy infrastructure, renewable development, and investing."
+        title="The people building it."
+        subtitle="Engineers, operators, and investors deploying solar PV and nuclear SMR capacity behind AI compute demand."
       />
       <LeadershipSection members={leadership} />
       <OperatingTeamSection members={operating} />
@@ -118,7 +116,7 @@ export default function TeamPageClient({ settings, team }: TeamPageClientProps) 
 }
 
 // ============================================================================
-// LEADERSHIP — PE-style large portrait cards
+// LEADERSHIP — 1786-style editorial portraits with bios
 // ============================================================================
 
 function LeadershipSection({ members }: { members: TeamMember[] }) {
@@ -126,70 +124,97 @@ function LeadershipSection({ members }: { members: TeamMember[] }) {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <RevealSection className="pt-16 sm:pt-20 lg:pt-28 pb-12 sm:pb-16 lg:pb-20 bg-white">
+    <RevealSection className="pt-20 sm:pt-24 lg:pt-32 pb-16 sm:pb-20 lg:pb-28 bg-white">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
-        {/* Section header */}
+        {/* Editorial section header */}
         <motion.div
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={fadeUp}
-          className="mb-10 sm:mb-14"
+          className="mb-14 sm:mb-20 max-w-3xl"
         >
-          <SectionLabel>Leadership</SectionLabel>
-          <TextReveal
-            as="p"
-            className="text-[15px] sm:text-base text-gray-500 max-w-lg leading-relaxed"
-          >
-            Our leadership team combines experience in infrastructure investing, energy project development, and system engineering.
-          </TextReveal>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-px bg-black" />
+            <span className="text-[11px] sm:text-xs font-bold tracking-[0.24em] uppercase text-black">
+              Leadership
+            </span>
+          </div>
+          <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-serif text-black leading-[1.15] tracking-[-0.015em]">
+            A firm built by engineers who deploy capital like operators.
+          </h2>
         </motion.div>
 
-        {/* Leadership grid — large cards */}
+        {/* Single-column editorial layout — alternating sides */}
         <motion.div
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={staggerContainer}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 lg:gap-10"
+          className="space-y-20 sm:space-y-24 lg:space-y-32"
         >
           {members.map((person, i) => {
             const imgUrl = getImageUrl(person);
-            const objectPos = person.imagePosition || "center";
+            const objectPos = person.imagePosition || "center 20%";
+            const reversed = i % 2 === 1;
+
             return (
-              <motion.div
+              <motion.article
                 key={person._id}
                 variants={staggerItem}
-                className="group"
+                className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-start"
               >
-                {/* Photo */}
-                <div className="aspect-[3/4] overflow-hidden rounded-sm bg-surface mb-5 sm:mb-6">
-                  <img
-                    src={imgUrl}
-                    alt={person.name}
-                    loading={i === 0 ? "eager" : "lazy"}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    style={{ objectPosition: objectPos }}
-                  />
+                {/* Portrait — large, grayscale, color on hover */}
+                <div className={`lg:col-span-5 ${reversed ? "lg:order-2 lg:col-start-8" : ""}`}>
+                  <div className="group aspect-[4/5] overflow-hidden rounded-sm bg-surface relative">
+                    {imgUrl ? (
+                      <img
+                        src={imgUrl}
+                        alt={person.name}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        className="w-full h-full object-cover grayscale contrast-[1.05] transition-all duration-[900ms] ease-out group-hover:grayscale-0 group-hover:scale-[1.02]"
+                        style={{ objectPosition: objectPos }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-neutral-100">
+                        <span className="font-serif text-4xl text-neutral-300">
+                          {person.name.split(" ").map((p) => p[0]).slice(0, 2).join("")}
+                        </span>
+                      </div>
+                    )}
+                    {/* Index marker */}
+                    <div className="absolute top-4 left-4 text-[10px] font-bold tracking-[0.2em] text-white/80 mix-blend-difference">
+                      0{i + 1}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Info */}
-                <h3 className="text-lg sm:text-xl font-serif text-primary leading-snug tracking-tight">
-                  {person.name}
-                </h3>
-                <p className="mt-1 text-xs sm:text-[13px] text-accent-500 font-semibold tracking-[0.08em] uppercase">
-                  {person.title}
-                </p>
+                {/* Copy */}
+                <div className={`lg:col-span-6 lg:pt-6 ${reversed ? "lg:order-1 lg:col-start-2" : ""}`}>
+                  <p className="text-[11px] font-bold text-black tracking-[0.22em] uppercase">
+                    {person.title}
+                  </p>
+                  <h3 className="mt-3 text-[clamp(1.75rem,3vw,2.5rem)] font-serif text-black leading-[1.1] tracking-[-0.02em]">
+                    {person.name}
+                  </h3>
+                  <div className="mt-6 w-12 h-px bg-black" />
+                  {person.bio && (
+                    <p className="mt-7 text-[15px] sm:text-base text-neutral-600 leading-[1.85] max-w-xl">
+                      {person.bio}
+                    </p>
+                  )}
 
-                {person.linkedIn && (
-                  <a
-                    href={person.linkedIn}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-1.5 text-gray-300 hover:text-primary transition-colors duration-300"
-                  >
-                    <Linkedin className="w-4 h-4" />
-                  </a>
-                )}
-              </motion.div>
+                  {person.linkedIn && (
+                    <a
+                      href={person.linkedIn}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-8 inline-flex items-center gap-2 text-neutral-500 hover:text-black transition-colors duration-300 text-[11px] font-bold tracking-[0.2em] uppercase"
+                    >
+                      <Linkedin className="w-3.5 h-3.5" />
+                      LinkedIn
+                    </a>
+                  )}
+                </div>
+              </motion.article>
             );
           })}
         </motion.div>
@@ -199,7 +224,7 @@ function LeadershipSection({ members }: { members: TeamMember[] }) {
 }
 
 // ============================================================================
-// OPERATING TEAM — Compact row, smaller circular photos
+// OPERATING TEAM — Square portraits, editorial grid
 // ============================================================================
 
 function OperatingTeamSection({ members }: { members: TeamMember[] }) {
@@ -207,58 +232,66 @@ function OperatingTeamSection({ members }: { members: TeamMember[] }) {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <RevealSection className="py-12 sm:py-16 lg:py-20 bg-[#f5f6fa]">
+    <RevealSection className="py-20 sm:py-24 lg:py-28 bg-black text-white">
       <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
-        {/* Section header */}
+        {/* Header */}
         <motion.div
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={fadeUp}
-          className="mb-8 sm:mb-10"
+          className="mb-14 sm:mb-16 max-w-2xl"
         >
-          <SectionLabel>Team</SectionLabel>
-          <TextReveal
-            as="p"
-            className="text-[15px] sm:text-base text-gray-500 max-w-md leading-relaxed"
-          >
-            The professionals supporting our investment and operational activities.
-          </TextReveal>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-px bg-white" />
+            <span className="text-[11px] sm:text-xs font-bold tracking-[0.24em] uppercase text-white">
+              Team
+            </span>
+          </div>
+          <h2 className="text-[clamp(1.5rem,2.8vw,2.25rem)] font-serif text-white leading-[1.15] tracking-[-0.01em]">
+            The operators behind every deal.
+          </h2>
         </motion.div>
 
-        {/* Team grid — smaller circular photos */}
+        {/* Square editorial grid */}
         <motion.div
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={staggerContainer}
-          className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 max-w-3xl"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14"
         >
           {members.map((person) => {
             const imgUrl = getImageUrl(person);
-            const objectPos = person.imagePosition || "top";
+            const objectPos = person.imagePosition || "center 20%";
             return (
               <motion.div
                 key={person._id}
                 variants={staggerItem}
                 className="group"
               >
-                <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 overflow-hidden rounded-full bg-white mb-4 mx-auto sm:mx-0 shadow-sm">
-                  <img
-                    src={imgUrl}
-                    alt={person.name}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                    style={{ objectPosition: objectPos }}
-                  />
+                <div className="aspect-square overflow-hidden bg-neutral-900 mb-5">
+                  {imgUrl ? (
+                    <img
+                      src={imgUrl}
+                      alt={person.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover grayscale contrast-[1.05] transition-all duration-[800ms] ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
+                      style={{ objectPosition: objectPos }}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="font-serif text-4xl text-neutral-700">
+                        {person.name.split(" ").map((p) => p[0]).slice(0, 2).join("")}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
-                <div className="text-center sm:text-left">
-                  <h4 className="text-[15px] sm:text-base font-semibold text-primary leading-snug">
-                    {person.name}
-                  </h4>
-                  <p className="mt-0.5 text-[11px] sm:text-xs text-gray-400 tracking-[0.06em] uppercase font-medium">
-                    {person.title}
-                  </p>
-                </div>
+                <p className="text-[10px] font-bold text-white/60 tracking-[0.22em] uppercase">
+                  {person.title}
+                </p>
+                <h4 className="mt-2 text-xl sm:text-2xl font-serif text-white leading-tight tracking-[-0.01em]">
+                  {person.name}
+                </h4>
               </motion.div>
             );
           })}

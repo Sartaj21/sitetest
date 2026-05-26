@@ -145,24 +145,6 @@ function ContactContent({ email, phone, address, settings }: { email: string; ph
               ))}
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-10 p-6 bg-[#f0f2f8] rounded-sm"
-            >
-              <h4 className="text-sm font-semibold text-primary mb-2">Qualified Opportunity Zone Fund</h4>
-              <p className="text-[13px] text-gray-500 leading-relaxed">
-                M2PV Capital operates as a Qualified Opportunity Zone Fund. Learn more about the
-                tax advantages available to investors.
-              </p>
-              <a
-                href="/about"
-                className="mt-3 inline-flex items-center gap-1.5 text-accent-500 hover:text-accent-700 text-xs font-semibold transition-colors duration-300"
-              >
-                Learn More <ArrowRight className="w-3 h-3" />
-              </a>
-            </motion.div>
           </motion.div>
         </div>
       </div>
