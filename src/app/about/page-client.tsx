@@ -23,7 +23,7 @@ export default function AboutPageClient({ settings }: AboutPageClientProps) {
       <PageHero
         label="About M2PV Capital"
         title="Building the energy backbone of AI."
-        subtitle="We deploy growth equity and project capital into utility-scale solar PV plants and small modular nuclear reactors sited in rural areas."
+        subtitle="We deploy growth equity and project capital into utility-scale solar PV plants and small modular nuclear reactors."
       />
       <FirmOverview settings={s} />
       <InvestmentApproach />
@@ -55,7 +55,7 @@ function FirmOverview({ settings }: { settings: SiteSettings }) {
               as="h2"
               className="text-[clamp(1.5rem,3vw,2.25rem)] font-serif text-primary leading-[1.25] tracking-[-0.01em]"
             >
-              M2PV Capital is an AI-energy infrastructure firm focused on solar PV and nuclear SMR deployment in rural areas.
+              M2PV Capital is an AI-energy infrastructure firm focused on solar PV and nuclear SMR deployment.
             </TextReveal>
           </motion.div>
 
@@ -67,8 +67,8 @@ function FirmOverview({ settings }: { settings: SiteSettings }) {
           >
             <p className="text-[15px] sm:text-base text-gray-600 leading-[1.8]">
               M2PV Capital deploys growth equity and project capital into utility-scale solar PV plants
-              and small modular nuclear reactors located in rural areas.
-              We pair this generation directly with AI and hyperscale data center offtake — building
+              and small modular nuclear reactors. We pair this generation directly with AI and
+              hyperscale data center offtake — building
               vertically integrated platforms that capture value at every stage of the electron&apos;s journey to compute.
             </p>
             <p className="mt-5 text-[15px] sm:text-base text-gray-600 leading-[1.8]">
@@ -80,7 +80,7 @@ function FirmOverview({ settings }: { settings: SiteSettings }) {
             <p className="mt-5 text-[15px] sm:text-base text-gray-600 leading-[1.8]">
               Because our team combines deep engineering expertise with investment experience,
               we evaluate every opportunity through a dual lens — technical feasibility and financial merit.
-              We believe rural areas, paired with AI compute offtake, represent the most compelling
+              We believe this approach, paired with AI compute offtake, represents the most compelling
               energy infrastructure opportunity set in North America today.
             </p>
             <LineReveal className="mt-8" />
@@ -139,7 +139,7 @@ function InvestmentApproach() {
           className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
         >
           {[
-            { num: "01", title: "Solar PV", desc: "Utility-scale photovoltaic plants co-developed in rural areas.", icon: <Sun className="w-5 h-5" /> },
+            { num: "01", title: "Solar PV", desc: "Utility-scale photovoltaic plants co-developed in target markets.", icon: <Sun className="w-5 h-5" /> },
             { num: "02", title: "Nuclear SMR", desc: "Small modular reactors delivering 24/7 firm baseload for AI workloads.", icon: <Zap className="w-5 h-5" /> },
             { num: "03", title: "Storage & Firming", desc: "Battery storage paired with PV to firm intermittent generation.", icon: <Battery className="w-5 h-5" /> },
             { num: "04", title: "AI Compute Offtake", desc: "Behind-the-meter PPAs with hyperscale and AI data center operators.", icon: <Server className="w-5 h-5" /> },

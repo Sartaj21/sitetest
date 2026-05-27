@@ -23,7 +23,7 @@ export default function SectorsPageClient({ settings, sectors }: SectorsPageClie
       <PageHero
         label="Focus Areas"
         title="Deploying the energy that powers AI."
-        subtitle="We target utility-scale solar PV and small modular nuclear reactors sited in rural areas — directly paired with AI and hyperscale data center offtake."
+        subtitle="We target utility-scale solar PV and small modular nuclear reactors — directly paired with AI and hyperscale data center offtake."
       />
       <SectorsList sectors={sectors} />
       <ThesisBanner settings={s} />

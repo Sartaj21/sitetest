@@ -126,7 +126,6 @@ function ContactContent({ email, phone, address, settings }: { email: string; ph
               {[
                 { label: "About M2PV Capital", desc: "Learn about our firm, team, and investment approach.", href: "/about" },
                 { label: "Investment Sectors", desc: "Explore our focus areas across the energy value chain.", href: "/sectors" },
-                { label: "Latest Insights", desc: "Our perspectives on energy infrastructure and markets.", href: "/insights" },
               ].map((link) => (
                 <motion.a
                   key={link.label}

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: "%s | M2PV Capital",
   },
   description:
-    "M2PV Capital deploys growth equity and project capital into utility-scale solar PV plants and nuclear SMRs sited in rural areas, powering AI and hyperscale data center demand.",
+    "M2PV Capital deploys growth equity and project capital into utility-scale solar PV plants and nuclear SMRs, powering AI and hyperscale data center demand.",
   keywords: [
     "Private Equity",
     "AI Energy Infrastructure",
@@ -24,7 +24,6 @@ export const metadata: Metadata = {
     "Small Modular Reactor",
     "AI Data Centers",
     "Hyperscale",
-    "Rural Areas",
     "M2PV Capital",
     "Clean Baseload",
   ],
@@ -39,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "M2PV Capital | AI Energy Infrastructure Private Equity",
     description:
-      "Deploying growth equity and project capital into utility-scale solar PV plants and nuclear SMRs in rural areas — powering AI data center demand.",
+      "Deploying growth equity and project capital into utility-scale solar PV plants and nuclear SMRs — powering AI data center demand.",
     type: "website",
     url: "https://m2pvcapital.com",
     siteName: "M2PV Capital",
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "M2PV Capital | AI Energy Infrastructure Private Equity",
     description:
-      "Deploying growth equity and project capital into utility-scale solar PV plants and nuclear SMRs in rural areas — powering AI data center demand.",
+      "Deploying growth equity and project capital into utility-scale solar PV plants and nuclear SMRs — powering AI data center demand.",
   },
   robots: {
     index: true,
@@ -86,7 +85,7 @@ export default function RootLayout({
               name: "M2PV Capital",
               url: "https://m2pvcapital.com",
               description:
-                "AI energy infrastructure private equity firm deploying utility-scale solar PV plants and nuclear SMRs in rural areas to power AI and hyperscale data center demand.",
+                "AI energy infrastructure private equity firm deploying utility-scale solar PV plants and nuclear SMRs to power AI and hyperscale data center demand.",
               foundingDate: "2024",
               founders: [
                 {
@@ -97,7 +96,7 @@ export default function RootLayout({
               ],
               address: {
                 "@type": "PostalAddress",
-                addressRegion: "Rural Areas",
+                addressRegion: "United States",
                 addressCountry: "US",
               },
               sameAs: [],

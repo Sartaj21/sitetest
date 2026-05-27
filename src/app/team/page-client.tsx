@@ -22,7 +22,11 @@ const FALLBACK_LEADERSHIP: TeamMember[] = [
     role: "leadership",
     image: null,
     imagePosition: "center 20%",
-    bio: "M2 founded M2PV Capital to bridge engineering excellence and energy infrastructure investment. He leads the firm's deployment of solar PV and small modular nuclear into rural areas supplying the next generation of American AI compute.",
+    bio: "M2 founded M2PV Capital to bridge engineering excellence and energy infrastructure investment. He leads the firm's deployment of solar PV and small modular nuclear powering the next generation of American AI compute.",
+    education: [
+      "MBA, Alliance Manchester Business School",
+      "B.S. Electrical Engineering, FH Regensburg",
+    ],
   },
   {
     _id: "f-gabriel",
@@ -200,6 +204,21 @@ function LeadershipSection({ members }: { members: TeamMember[] }) {
                     <p className="mt-7 text-[15px] sm:text-base text-neutral-600 leading-[1.85] max-w-xl">
                       {person.bio}
                     </p>
+                  )}
+
+                  {person.education && person.education.length > 0 && (
+                    <div className="mt-8">
+                      <p className="text-[10px] font-bold text-black tracking-[0.22em] uppercase mb-3">
+                        Education
+                      </p>
+                      <ul className="space-y-1.5">
+                        {person.education.map((e) => (
+                          <li key={e} className="text-[14px] sm:text-[15px] text-neutral-600 leading-relaxed">
+                            {e}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
 
                   {person.linkedIn && (

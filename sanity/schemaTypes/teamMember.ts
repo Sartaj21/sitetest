@@ -38,6 +38,13 @@ export const teamMember = defineType({
       rows: 4,
     }),
     defineField({
+      name: 'education',
+      title: 'Education',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'One entry per degree (e.g., "MBA, Alliance Manchester Business School")',
+    }),
+    defineField({
       name: 'image',
       title: 'Photo',
       type: 'image',

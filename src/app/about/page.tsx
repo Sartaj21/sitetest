@@ -6,7 +6,7 @@ export const revalidate = 60
 
 export const metadata = {
   title: 'About | M2PV Capital',
-  description: 'Learn about M2PV Capital — an AI-energy infrastructure investment firm deploying solar PV and nuclear SMRs in rural areas.',
+  description: 'Learn about M2PV Capital — an AI-energy infrastructure investment firm deploying solar PV and nuclear SMRs.',
   alternates: {
     canonical: '/about',
   },

@@ -1,12 +1,12 @@
 import { client } from '../../sanity/lib/client'
-import { siteSettingsQuery, teamMembersQuery, sectorsQuery, insightsQuery } from '../../sanity/lib/queries'
+import { siteSettingsQuery, sectorsQuery } from '../../sanity/lib/queries'
 import PageClient from './page-client'
 
 export const revalidate = 60 // Revalidate every 60 seconds
 
 export const metadata = {
   title: 'AI Energy Infrastructure Private Equity',
-  description: 'M2PV Capital deploys growth capital into solar PV plants and nuclear SMRs in rural areas — powering AI and hyperscale data centers.',
+  description: 'M2PV Capital deploys growth capital into solar PV plants and nuclear SMRs — powering AI and hyperscale data centers.',
   alternates: {
     canonical: '/',
   },
@@ -14,29 +14,25 @@ export const metadata = {
 
 async function getData() {
   try {
-    const [settings, team, sectors, insights] = await Promise.all([
+    const [settings, sectors] = await Promise.all([
       client.fetch(siteSettingsQuery),
-      client.fetch(teamMembersQuery),
       client.fetch(sectorsQuery),
-      client.fetch(insightsQuery),
     ])
-    
-    return { settings, team, sectors, insights }
+
+    return { settings, sectors }
   } catch (error) {
     console.error('Error fetching from Sanity:', error)
-    return { settings: null, team: [], sectors: [], insights: [] }
+    return { settings: null, sectors: [] }
   }
 }
 
 export default async function Home() {
-  const { settings, team, sectors, insights } = await getData()
-  
+  const { settings, sectors } = await getData()
+
   return (
-    <PageClient 
-      settings={settings} 
-      team={team} 
-      sectors={sectors} 
-      insights={insights} 
+    <PageClient
+      settings={settings}
+      sectors={sectors}
     />
   )
 }

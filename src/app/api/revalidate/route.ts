@@ -15,14 +15,8 @@ export async function POST(request: NextRequest) {
 
     // Revalidate the homepage (which fetches all content)
     revalidatePath('/')
-    
-    // You can also revalidate specific paths based on the webhook payload
-    // const body = await request.json()
-    // if (body._type === 'insight') {
-    //   revalidatePath('/insights')
-    // }
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       revalidated: true, 
       now: Date.now(),
       message: 'Revalidation triggered successfully' 

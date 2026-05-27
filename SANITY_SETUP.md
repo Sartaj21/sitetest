@@ -40,7 +40,6 @@ You'll see the Sanity Studio dashboard where you can:
 - Edit **Site Settings** (hero text, stats, contact info)
 - Add/edit **Team Members**
 - Manage **Sectors**
-- Create **Insights** articles
 
 ---
 
@@ -64,12 +63,6 @@ You'll see the Sanity Studio dashboard where you can:
 - Name, short & full descriptions
 - Icon name (from Lucide)
 - Statistics array
-- Display order
-
-### Insights
-- Title, category, excerpt
-- Date, read time
-- Featured flag
 - Display order
 
 ---

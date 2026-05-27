@@ -11,12 +11,11 @@ import {
 } from "framer-motion";
 import { ArrowRight, Crosshair, Shield } from "lucide-react";
 import {
-  SiteSettings, TeamMember, Sector, Insight,
-  D, DEFAULT_SECTORS, DEFAULT_INSIGHTS, SECTOR_IMAGES, INSIGHT_IMAGES,
+  SiteSettings, Sector,
+  D, DEFAULT_SECTORS, SECTOR_IMAGES,
   fadeUp, staggerContainer, staggerItem,
   Navbar, Footer, SectionLabel, SectorIcon, urlFor,
   TextReveal, CountUp, ParallaxImage, RevealSection, MagneticButton, LineReveal,
-  formatInsightDate,
 } from "./components";
 
 // ============================================================================
@@ -25,15 +24,12 @@ import {
 
 interface PageClientProps {
   settings: SiteSettings | null;
-  team: TeamMember[];
   sectors: Sector[];
-  insights: Insight[];
 }
 
 const HERO_STATEMENTS = [
   "Powering AI With Clean Energy",
   "Solar PV & Nuclear SMR for Rural America",
-  "Energy Deployment in Rural America",
 ];
 
 // ============================================================================
@@ -429,7 +425,7 @@ function MissionSection() {
               as="h2"
               className="text-[clamp(1.4rem,3vw,2.5rem)] font-serif text-primary leading-[1.35] tracking-[-0.01em]"
             >
-              M2PV Capital deploys solar PV plants and nuclear SMRs in rural areas — financing the energy that powers AI and delivering durable returns to the communities we build in.
+              M2PV Capital deploys solar PV plants and nuclear SMRs — financing the energy that powers AI and delivering durable returns to the communities we build in.
             </TextReveal>
             <motion.a
               href="/about"
@@ -502,7 +498,7 @@ function InvestmentThesisSection() {
   const stats = [
     { v: "30+ GW", l: "Hyperscaler PPAs signed in 2024" },
     { v: "2,600+ GW", l: "Stuck in U.S. interconnection queue" },
-    { v: "8,764", l: "Rural tracts eligible for deployment" },
+    { v: "8,764", l: "Eligible tracts in target states" },
     { v: "$1T+", l: "U.S. AI power capex through 2030" },
   ];
 
@@ -712,85 +708,6 @@ function SectorsPreview({ sectors }: { sectors: Sector[] }) {
 }
 
 // ============================================================================
-// INSIGHTS PREVIEW — Separate section for latest insights
-// ============================================================================
-
-function InsightsPreview({ insights }: { insights: Insight[] }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const insightList = insights.length > 0 ? insights : DEFAULT_INSIGHTS;
-
-  return (
-    <RevealSection className="py-16 sm:py-20 lg:py-28 bg-white">
-      <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
-
-        <motion.div
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={fadeUp}
-        >
-          <SectionLabel>Perspectives</SectionLabel>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
-            <TextReveal
-              as="h2"
-              className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-serif text-primary leading-[1.2]"
-            >
-              Latest Insights
-            </TextReveal>
-            <a
-              href="/insights"
-              className="inline-flex items-center gap-2 text-accent-500 hover:text-accent-700 text-sm font-semibold transition-colors group shrink-0"
-            >
-              View All Insights
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
-            </a>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={staggerContainer}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
-        >
-          {insightList.slice(0, 3).map((item, i) => {
-            const img = item.coverImage
-              ? urlFor(item.coverImage)?.width(600).height(400).url()
-              : INSIGHT_IMAGES[i % INSIGHT_IMAGES.length];
-            return (
-              <motion.a
-                key={item._id}
-                href="/insights"
-                variants={staggerItem}
-                className="group bg-[#fafafa] border border-gray-200/60 rounded-sm overflow-hidden hover:shadow-2xl hover:border-gray-300 transition-all duration-500 hover:-translate-y-1"
-              >
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img
-                    src={img || ""}
-                    alt={item.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                </div>
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-[10px] font-semibold text-accent-500 tracking-[0.15em] uppercase">{item.category}</span>
-                    <span className="text-[11px] text-gray-300">{formatInsightDate(item.date)}</span>
-                  </div>
-                  <h3 className="text-base sm:text-lg font-serif text-primary group-hover:text-accent-600 transition-colors duration-300 leading-snug">
-                    {item.title}
-                  </h3>
-                </div>
-              </motion.a>
-            );
-          })}
-        </motion.div>
-      </div>
-    </RevealSection>
-  );
-}
-
-// ============================================================================
 // CONTACT CTA — Simple bottom CTA
 // ============================================================================
 
@@ -841,7 +758,7 @@ function ContactCTA({ settings }: { settings: SiteSettings }) {
 // MAIN CLIENT COMPONENT — Homepage Overview
 // ============================================================================
 
-export default function PageClient({ settings, team, sectors, insights }: PageClientProps) {
+export default function PageClient({ settings, sectors }: PageClientProps) {
   const s = settings || D;
 
   return (
@@ -853,7 +770,6 @@ export default function PageClient({ settings, team, sectors, insights }: PageCl
       <StatsBanner settings={s} />
       <EdgeSection />
       <SectorsPreview sectors={sectors} />
-      <InsightsPreview insights={insights} />
       <ContactCTA settings={s} />
       <Footer settings={s} />
     </div>

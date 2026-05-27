@@ -77,6 +77,7 @@ export interface TeamMember {
   title: string;
   role?: 'leadership' | 'operating';
   bio?: string;
+  education?: string[];
   image?: any;
   imagePosition?: string;
   linkedIn?: string;
@@ -94,32 +95,6 @@ export interface Sector {
   order?: number;
 }
 
-export interface Insight {
-  _id: string;
-  title: string;
-  slug?: { current: string };
-  coverImage?: any;
-  category?: string;
-  excerpt?: string;
-  body?: any[];
-  date?: string;
-  readTime?: string;
-  featured?: boolean;
-  order?: number;
-}
-
-/** Format a date string (ISO or display) into a readable format like "January 23, 2026" */
-export function formatInsightDate(date?: string): string {
-  if (!date) return "";
-  // If it's an ISO date (YYYY-MM-DD) from Sanity date type
-  if (/^\d{4}-\d{2}-\d{2}/.test(date)) {
-    const d = new Date(date + "T12:00:00");
-    return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-  }
-  // Already a display string (from old data)
-  return date;
-}
-
 // ============================================================================
 // DEFAULT CONTENT
 // ============================================================================
@@ -127,12 +102,12 @@ export function formatInsightDate(date?: string): string {
 export const D: SiteSettings = {
   heroHeadline: "Powering AI With Clean Energy",
   heroSubheadline:
-    "M2PV Capital deploys solar PV and nuclear SMR generation in rural areas to power the next generation of AI infrastructure.",
+    "M2PV Capital deploys solar PV and nuclear SMR generation to power the next generation of AI infrastructure.",
   heroTagline: "AI Energy Infrastructure",
   thesisTitle:
-    "Rural areas are the deployment frontier for AI-grade power",
+    "The deployment frontier for AI-grade power",
   thesisDescription:
-    "AI compute demand is outpacing the grid. We co-develop utility-scale solar PV plants and small modular nuclear reactors in rural areas — bringing dispatchable, low-carbon baseload directly to the data centers that need it most.",
+    "AI compute demand is outpacing the grid. We co-develop utility-scale solar PV plants and small modular nuclear reactors — bringing dispatchable, low-carbon baseload directly to the data centers that need it most.",
   stat1Value: "$1T+",
   stat1Label: "AI Power Infrastructure Gap",
   stat2Value: "100+ GW",
@@ -140,18 +115,17 @@ export const D: SiteSettings = {
   stat3Value: "Baseload",
   stat3Label: "SMR + Solar PV Deployment",
   stat4Value: "8,764",
-  stat4Label: "Rural Tracts in Target States",
+  stat4Label: "Eligible Tracts in Target States",
   statsSource: "Sources: DOE, NREL, EIA, U.S. Treasury, McKinsey Energy Insights",
   rotatingWords: [
     "AI Data Centers",
     "Hyperscale Compute",
-    "Rural Areas",
     "Solar PV Plants",
     "Nuclear SMRs",
     "Baseload Power",
   ],
   contactEmail: "ceo@m2pvcapital.com",
-  footerTagline: "AI-grade energy infrastructure for rural America — solar PV and nuclear SMR in rural areas.",
+  footerTagline: "AI-grade energy infrastructure — solar PV and nuclear SMR powering the next generation of compute.",
   footerDisclaimer:
     "© 2026 M2PV Capital. This website does not constitute an offer to sell or a solicitation of an offer to buy any securities.",
 };
@@ -166,16 +140,15 @@ export const NAV_LINKS = [
     ],
   },
   { label: "Team", href: "/team" },
-  { label: "Insights", href: "/insights" },
 ];
 
 export const DEFAULT_SECTORS: Sector[] = [
   {
     _id: "1",
     name: "Solar PV Plants",
-    shortDescription: "Utility-Scale Generation in Rural Areas",
+    shortDescription: "Utility-Scale Generation for AI Compute",
     fullDescription:
-      "Co-developed utility-scale photovoltaic plants sited in rural areas — supplying low-cost, low-carbon electrons directly to co-located AI data centers.",
+      "Co-developed utility-scale photovoltaic plants — supplying low-cost, low-carbon electrons directly to co-located AI data centers.",
     icon: "Sun",
     stats: [
       { value: "1+ GW", label: "PV Pipeline" },
@@ -187,7 +160,7 @@ export const DEFAULT_SECTORS: Sector[] = [
     name: "Nuclear SMRs",
     shortDescription: "24/7 Baseload for AI Compute",
     fullDescription:
-      "Small modular reactors deployed in rural areas to provide dispatchable, firm baseload power — the round-the-clock complement that AI training and inference workloads require.",
+      "Small modular reactors providing dispatchable, firm baseload power — the round-the-clock complement that AI training and inference workloads require.",
     icon: "Zap",
     stats: [
       { value: "Firm", label: "Baseload" },
@@ -219,24 +192,12 @@ export const DEFAULT_TEAM: TeamMember[] = [
   { _id: "8", name: "Analyst", title: "Analyst", bio: "Specializes in financial modeling and due diligence." },
 ];
 
-export const DEFAULT_INSIGHTS: Insight[] = [
-  { _id: "1", title: "The Power-Hungry AI: Data Center Energy Demands", category: "INSIGHTS", date: "JAN 15, 2026", readTime: "5 MIN READ", excerpt: "How the explosion in AI compute is reshaping power requirements for hyperscale facilities." },
-  { _id: "2", title: "Grid Constraints: The Hidden Bottleneck", category: "INSIGHTS", date: "DEC 28, 2025", readTime: "4 MIN READ", excerpt: "Why interconnection queues are creating unprecedented opportunities for shovel-ready solar projects." },
-  { _id: "3", title: "Fleet Electrification: The Logistics Opportunity", category: "NEWS", date: "DEC 10, 2025", readTime: "3 MIN READ", excerpt: "Mapping the depot charging infrastructure needed for commercial fleet transitions along I-10." },
-];
-
 // Order matches DEFAULT_SECTORS: [0] Solar PV, [1] Nuclear SMR, [2] AI Data Center.
 // Nuclear uses a locally-hosted JPG; solar + data center are Unsplash photos.
 export const SECTOR_IMAGES = [
   "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=80",
   "/sectors/nuclear.jpg",
   "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80",
-];
-
-export const INSIGHT_IMAGES = [
-  "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
-  "/sectors/nuclear.jpg",
-  "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=80",
 ];
 
 // ============================================================================
@@ -694,7 +655,7 @@ export function SectorIcon({ name, className }: { name?: string; className?: str
 // ============================================================================
 
 // Pages with dark hero banners — navbar text should be light when not scrolled
-const DARK_HERO_PAGES = ["/about", "/sectors", "/insights", "/contact", "/team"];
+const DARK_HERO_PAGES = ["/about", "/sectors", "/contact", "/team"];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -982,7 +943,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               <span className="text-[15px] font-semibold text-white tracking-tight">M2PV Capital</span>
             </div>
             <p className="text-sm text-white/40 leading-relaxed max-w-xs">
-              {settings.footerTagline || D.footerTagline || "AI-grade energy infrastructure for rural America — solar PV and nuclear SMR in rural areas."}
+              {settings.footerTagline || D.footerTagline || "AI-grade energy infrastructure — solar PV and nuclear SMR powering the next generation of compute."}
             </p>
           </div>
 
@@ -992,7 +953,6 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               <li><a href="/about" className="text-sm text-white/50 hover:text-white transition-colors">About</a></li>
               <li><a href="/sectors" className="text-sm text-white/50 hover:text-white transition-colors">Sectors</a></li>
               <li><a href="/team" className="text-sm text-white/50 hover:text-white transition-colors">Team</a></li>
-              <li><a href="/insights" className="text-sm text-white/50 hover:text-white transition-colors">Insights</a></li>
               <li><a href="/contact" className="text-sm text-white/50 hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
