@@ -196,7 +196,7 @@ export const DEFAULT_TEAM: TeamMember[] = [
 // Nuclear uses a locally-hosted JPG; solar + data center are Unsplash photos.
 export const SECTOR_IMAGES = [
   "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=80",
-  "/sectors/nuclear.jpg",
+  "/sectors/smr.jpg",
   "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80",
 ];
 
