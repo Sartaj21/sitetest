@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Zap, Server, Sun, Battery } from "lucide-react";
+import { Zap, Server, Sun, Battery, Scale, ShieldCheck, Handshake } from "lucide-react";
 import {
   SiteSettings, D, fadeUp, fadeLeft, fadeRight, staggerContainer, staggerItem,
   Navbar, Footer, PageHero, SectionLabel,
@@ -27,6 +27,7 @@ export default function AboutPageClient({ settings }: AboutPageClientProps) {
       />
       <FirmOverview settings={s} />
       <InvestmentApproach />
+      <VisionValues />
       <Footer settings={s} />
     </div>
   );
@@ -158,6 +159,89 @@ function InvestmentApproach() {
             </motion.div>
           ))}
         </motion.div>
+      </div>
+    </RevealSection>
+  );
+}
+
+// ============================================================================
+// VISION & CORE VALUES
+// ============================================================================
+
+function VisionValues() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const values = [
+    {
+      icon: <Scale className="w-5 h-5" />,
+      title: "Ethics",
+      desc: "We hold ourselves to the highest standard in every decision — to our investors, partners, communities, and the planet we power.",
+    },
+    {
+      icon: <ShieldCheck className="w-5 h-5" />,
+      title: "Integrity",
+      desc: "We say what we mean and do what we say. Transparent diligence, honest communication, and consistent follow-through define how we operate.",
+    },
+    {
+      icon: <Handshake className="w-5 h-5" />,
+      title: "Win-Win",
+      desc: "Every partnership we structure is engineered for shared success — aligning capital, engineering, and offtake so that all sides win together.",
+    },
+  ];
+
+  return (
+    <RevealSection className="py-16 sm:py-20 lg:py-28 bg-white">
+      <div ref={ref} className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+          <motion.div
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={fadeLeft}
+            className="lg:col-span-5"
+          >
+            <SectionLabel>Our Vision</SectionLabel>
+            <TextReveal
+              as="h2"
+              className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-serif text-primary leading-[1.2] tracking-[-0.01em]"
+            >
+              Building the energy backbone of AI.
+            </TextReveal>
+            <p className="mt-6 text-[15px] sm:text-base text-gray-600 leading-[1.8] max-w-md">
+              We see a future where every breakthrough in artificial intelligence is matched by the
+              clean, abundant generation that powers it.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={fadeRight}
+            className="lg:col-span-7"
+          >
+            <SectionLabel>Core Values</SectionLabel>
+            <motion.div
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              variants={staggerContainer}
+              className="grid sm:grid-cols-3 gap-3 sm:gap-4"
+            >
+              {values.map((v) => (
+                <motion.div
+                  key={v.title}
+                  variants={staggerItem}
+                  className="group bg-[#f5f5f5] border border-gray-100 hover:border-accent-200 p-5 sm:p-6 lg:p-7 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 rounded-sm"
+                >
+                  <div className="w-9 h-9 rounded bg-white flex items-center justify-center text-accent-500 mb-4 group-hover:bg-accent-50 group-hover:scale-110 transition-all duration-300">
+                    {v.icon}
+                  </div>
+                  <h4 className="text-lg sm:text-xl font-serif text-primary">{v.title}</h4>
+                  <p className="mt-2 text-[13px] text-gray-500 leading-relaxed">{v.desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </RevealSection>
   );
